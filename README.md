@@ -1,3 +1,3 @@
 # pro-blog
-Projet 5
+Project 5
 by benjamin valette
