@@ -1,12 +1,9 @@
 <?php
 
-require_once('src/model.php');
+namespace App\controllers\homepage;
 
-function homepage()
-{
-    $recentPosts = getRecentPosts();
+use App\model\Article;
 
-    require('template/homepage.php');
-}
+$recentArticles = getRecentArticles();
 
-
+require('template/homepage.php');

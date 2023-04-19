@@ -1,12 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8"/>
-        <title></title>
-        <link href="style.css" rel="stylesheet"/>
-    </head>
+<?php $title = "Le blog de Ben"; ?>
 
-    <body>
-        <h1>Hello world!</h1>
-    </body>
-</html>
+<?php ob_start(); ?>
+<h1>Mon super blog pro</h1>
+<p>Derniers articles du blog :</p>
+
+<?php
+foreach ($recentArticles as $article) {
+    ?>
+    <div class="news">
+        <h3>
+            <?= htmlspecialchars($article->title); ?>
+            <em>le <?= $article->creationDate; ?></em>
+        </h3>
+        <p>
+            <?= nl2br(htmlspecialchars($article->content)); ?>
+            <br>
+        </p>
+    </div>
+    <?php
+}
+?>
+<?php $content = ob_get_clean(); ?>
+
+<?php require('layout.php') ?>

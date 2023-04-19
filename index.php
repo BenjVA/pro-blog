@@ -1,4 +1,9 @@
 <?php
 
-require_once('src/controllers/homepage.php');
-require_once('src/controllers/post.php');
+require __DIR__ . '/vendor/autoload.php';
+
+try {
+
+} catch (Exception $e) {
+    echo 'Erreur : ' .$e->getMessage();
+}
