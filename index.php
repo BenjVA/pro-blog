@@ -7,7 +7,7 @@ use App\Router\Router;
 try {
     $router = new Router;
     $controller = $router->getController($_GET);
-    return $controller->showAction();
+    return $controller->showHomepage();
 } catch (Exception $e) {
     echo 'Erreur : ' .$e->getMessage();
 }

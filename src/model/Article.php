@@ -12,23 +12,23 @@ class Article
     public string $short;
     public string $status;
     public string $creationDate;
-    public DatabaseConnection $connection;
-    public function getRecentArticles(): array
+}
+
+class ArticleRepository
 {
-    $statement = $this->connection->getConnection()->query(
-        "SELECT id, title, short, DATE_FORMAT(creationDate, '%d/%m/%Y à %Hh%imin%ss') AS creationDate FROM article ORDER BY creationDate DESC LIMIT 0, 3"
+    public DatabaseConnection $connection;
+    public function getArticles(): Article
+{
+    $statement = $this->connection->getConnection()->prepare(
+        "SELECT id, title, short, DATE_FORMAT(creationDate, '%d/%m/%Y à %Hh%imin%ss') AS creationDate FROM article"
     );
-    $recentArticles = [];
-    while (($row = $statement->fetch())) {
-        $article = new Article();
-        $article->title = $row['title'];
-        $article->creationDate = $row['creationDate'];
-        $article->id = $row['id'];
-        $article->short = $row['short'];
+    $row = $statement->fetch();
+    $article = new Article();
+    $article->title = $row['title'];
+    $article->creationDate = $row['creationDate'];
+    $article->content = $row['content'];
+    $article->id = $row['id'];
 
-        $recentArticles[] = $article;
-    }
-
-    return $recentArticles;
+    var_dump($article);
 }
 }

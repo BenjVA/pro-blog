@@ -11,8 +11,8 @@ class Homepage
     {
 
     }
-    public function showAction()
+    public function showHomepage()
     {
-        return $this->twig->render('homepage.html.twig');
+        return $this->twig->display('homepage.html.twig');
     }
 }

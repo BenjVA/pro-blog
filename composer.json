@@ -3,9 +3,7 @@
   "type": "project",
   "autoload": {
     "psr-4": {
-      "App\\": "src",
-      "App\\controllers\\": "src/Controllers",
-      "App\\model\\": "src/model"
+      "App\\": "src"
     }
   },
   "require": {
