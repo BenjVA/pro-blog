@@ -13,22 +13,3 @@ class Article
     public string $status;
     public string $creationDate;
 }
-
-class ArticleRepository
-{
-    public DatabaseConnection $connection;
-    public function getArticles(): Article
-{
-    $statement = $this->connection->getConnection()->prepare(
-        "SELECT id, title, short, DATE_FORMAT(creationDate, '%d/%m/%Y à %Hh%imin%ss') AS creationDate FROM article"
-    );
-    $row = $statement->fetch();
-    $article = new Article();
-    $article->title = $row['title'];
-    $article->creationDate = $row['creationDate'];
-    $article->content = $row['content'];
-    $article->id = $row['id'];
-
-    var_dump($article);
-}
-}

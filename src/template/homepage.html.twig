@@ -2,17 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}
-            Mon super blog
-        {% endblock %}
-    </title>
+        <title>
+            {% block title %}
+                Title
+            {% endblock %}
+        </title>
     <link rel="stylesheet" href="/style.css">
-
 </head>
 
     <body>
         {% block body %}
             <h1>Mon geublo</h1>
+            {% for recentArticle in recentArticles %}
+                <h2>{{ recentArticle.title }}</h2>
+                <p>{{ recentArticle.short }}</p>
+            {% endfor %}
         {% endblock %}
     </body>
 </html>

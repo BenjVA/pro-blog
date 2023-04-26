@@ -3,15 +3,17 @@
 namespace App\Router;
 
 use App\Controllers\Homepage;
+use App\controllers\Articles;
+use Twig\Environment;
 use \Twig\Loader\FilesystemLoader;
 
 class Router
 {
-    public $twig;
+    public Environment $twig;
     public function __construct()
     {
         $loader = new FilesystemLoader('src/template');
-        $this->twig = new \Twig\Environment($loader);
+        $this->twig = new Environment($loader);
     }
     public function getController(array $parameters)
     {
