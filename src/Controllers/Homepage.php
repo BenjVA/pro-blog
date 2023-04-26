@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\model\Article;
 
+use App\model\ArticleRepository;
 use App\model\DatabaseConnection;
 use Twig\Environment;
 use \Twig\Loader\FilesystemLoader;

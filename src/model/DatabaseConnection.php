@@ -2,6 +2,8 @@
 
 namespace App\model;
 
+use PDO;
+
 class DatabaseConnection
 {
     public ?PDO $database = null;
