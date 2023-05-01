@@ -1,6 +1,6 @@
 <?php
 
-namespace App\controllers;
+namespace App\Controllers;
 
 use App\model\Article;
 use App\model\DatabaseConnection;
@@ -19,6 +19,7 @@ class Articles
         $articleRepository = new ArticleRepository();
         $articleRepository->connection = new DatabaseConnection();
         $articles = $articleRepository->getArticles();
+
         return $this->twig->display('articles.html.twig', compact('articles'));
     }
 }
