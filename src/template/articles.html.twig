@@ -1,10 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-        hello world
-</body>
-</html>
+{% extends 'header.html.twig' %}
+
+{% block content %}
+
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                <h1>Mon geublo</h1>
+
+                    Lisez ici ma magnifique catchphrase qui va vous couper le souffle !
+                </div>
+                <div class="col">
+                    {% for article in articles %}
+                        <h2>{{ article.title }}</h2>
+                        <p>{{ article.short }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </body>
+
+{% endblock %}
