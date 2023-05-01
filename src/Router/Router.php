@@ -17,11 +17,17 @@ class Router
     }
     public function getController(array $parameters)
     {
-        if (isset($parameters["action"]) && $parameters["action"] !== "") {
+        if (isset($parameters['action']) && $parameters['action'] !== '') {
             match($parameters['action']) {
                 'articles' => (new Articles($this->twig))->showArticles(),
                 default => 'error 404',
             };
+
+        if (isset($parameters['id']) && $parameters['id'] > 0) {
+            match($parameters['id']) {
+                
+            }
+        }
 
             return ;
         }

@@ -14,12 +14,12 @@ class Articles
 
     }
 
-    public function showArticles()
+    public function showArticles(): void
     {
         $articleRepository = new ArticleRepository();
         $articleRepository->connection = new DatabaseConnection();
         $articles = $articleRepository->getArticles();
 
-        return $this->twig->display('articles.html.twig', compact('articles'));
+        $this->twig->display('articles.html.twig', ['articles' => $articles]);
     }
 }
