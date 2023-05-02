@@ -2,7 +2,7 @@
 
 namespace App\Router;
 
-use App\Controllers\Article;
+use App\Controllers\article;
 use App\Controllers\Homepage;
 use App\controllers\Articles;
 use Twig\Environment;
@@ -26,7 +26,7 @@ class Router
 
         if (isset($parameters['id']) && $parameters['id'] >0)
             match ($parameters['id']) {
-            'id' => (new Article($this->twig))->showArticle(),
+            'id' => (new article($this->twig))->showArticle(),
                 default => 'error 404',
             };
         }
