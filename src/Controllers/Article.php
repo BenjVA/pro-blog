@@ -15,7 +15,6 @@ class Article
 
     public function showArticle($id)
     {
-        $id = $_GET['id'];
         $articleRepository = new ArticleRepository();
         $articleRepository->connection = new DatabaseConnection();
         $article = $articleRepository->getArticle($id);
