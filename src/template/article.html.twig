@@ -1,4 +1,4 @@
-{% extends 'header.html.twig' %}
+{% extends header.html.twig %}
 
 {% block content %}
 
@@ -11,11 +11,9 @@
                     Lisez ici ma magnifique catchphrase qui va vous couper le souffle !
                 </div>
                 <div class="col">
-                    {% for article in articles %}
-                        <h2>{{ article.title }}</h2>
-                        <p>{{ article.short }}</p>
-                        <a href="" class="btn btn-primary">Btn vers single article</a>
-                    {% endfor %}
+                    <h2>{{ article.title }}</h2>
+                    <p><small>{{ article.creationDate }}</small></p>
+                    <p>{{ article.content }}</p>
                 </div>
             </div>
         </div>
