@@ -24,11 +24,13 @@ class Router
                 default => 'error 404',
             };
 
-        if (isset($parameters['id']) && $parameters['id'] >0)
+        if (isset($parameters['id']) && $parameters['id'] >0) {
+            $id = $_GET['id'];
             match ($parameters['id']) {
-            'id' => (new article($this->twig))->showArticle(),
+            'id' => (new Article($this->twig))->showArticle($id),
                 default => 'error 404',
             };
+        }
         }
         (new Homepage($this->twig))->showHomepage();
     }
