@@ -21,13 +21,14 @@ class ArticleRepository
 
             $recentArticles[] = $recentArticle;
         }
+
         return $recentArticles;
     }
 
     public function getArticles(): array
     {
         $statement = $this->connection->getConnection()->query(
-            "SELECT id, title, short, DATE_FORMAT(creationDate, '%d/%m/%Y à %Hh%imin%ss') AS creationDate FROM article ORDER BY creationDate"
+            "SELECT id, title, short, DATE_FORMAT(creationDate, '%d/%m/%Y à %Hh%imin%ss') AS creationDate FROM article ORDER BY creationDate DESC"
         );
         $articles = [];
         while (($row = $statement->fetch())) {
@@ -39,6 +40,24 @@ class ArticleRepository
 
             $articles[] = $article;
         }
+
         return $articles;
+    }
+
+    public function getArticle($id): Article
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            "SELECT id, title, content, DATE_FORMAT(creationDate, '%d/%m/%Y à %Hh%imin%ss') AS creationDate FROM article WHERE id = $id"
+        );
+        $statement->execute([$id]);
+
+        $row = $statement->fetch();
+        $article = new Article();
+        $article->title = $row['title'];
+        $article->creationDate = $row['creationDate'];
+        $article->content = $row['content'];
+        $article->id = $row['id'];
+
+        return $article;
     }
 }

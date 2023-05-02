@@ -2,6 +2,7 @@
 
 namespace App\Router;
 
+use App\Controllers\Article;
 use App\Controllers\Homepage;
 use App\controllers\Articles;
 use Twig\Environment;
@@ -18,18 +19,16 @@ class Router
     public function getController(array $parameters)
     {
         if (isset($parameters['action']) && $parameters['action'] !== '') {
-            match($parameters['action']) {
+            match ($parameters['action']) {
                 'articles' => (new Articles($this->twig))->showArticles(),
                 default => 'error 404',
             };
 
-        if (isset($parameters['id']) && $parameters['id'] > 0) {
-            match($parameters['id']) {
-                
-            }
-        }
-
-            return ;
+        if (isset($parameters['id']) && $parameters['id'] >0)
+            match ($parameters['id']) {
+            'id' => (new Article($this->twig))->showArticle(),
+                default => 'error 404',
+            };
         }
         (new Homepage($this->twig))->showHomepage();
     }

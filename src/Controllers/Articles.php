@@ -2,14 +2,13 @@
 
 namespace App\Controllers;
 
-use App\model\Article;
 use App\model\DatabaseConnection;
-use \Twig\Loader\FilesystemLoader;
+use Twig\Environment;
 use App\model\ArticleRepository;
 
 class Articles
 {
-    public function __construct(public $twig)
+    public function __construct(public Environment $twig)
     {
 
     }
