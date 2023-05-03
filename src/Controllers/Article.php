@@ -2,8 +2,8 @@
 
 namespace App\Controllers;
 
-use App\model\ArticleRepository;
-use App\model\DatabaseConnection;
+use App\Model\ArticleRepository;
+use App\Model\DatabaseConnection;
 use Twig\Environment;
 
 class Article
