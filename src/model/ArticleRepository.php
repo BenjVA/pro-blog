@@ -47,9 +47,10 @@ class ArticleRepository
     public function getArticle($id): Article
     {
         $statement = $this->connection->getConnection()->prepare(
-            "SELECT id, title, content, DATE_FORMAT(creationDate, '%d/%m/%Y à %Hh%imin%ss') AS creationDate FROM article WHERE id = $id"
+            "SELECT id, title, content, DATE_FORMAT(creationDate, '%d/%m/%Y à %Hh%imin%ss') AS creationDate FROM article WHERE id = ?"
         );
         $statement->execute([$id]);
+
 
         $row = $statement->fetch();
         $article = new Article();

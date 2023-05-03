@@ -13,7 +13,7 @@ class Article
         
     }
 
-    public function showArticle($id)
+    public function showArticle($id): void
     {
         $articleRepository = new ArticleRepository();
         $articleRepository->connection = new DatabaseConnection();
