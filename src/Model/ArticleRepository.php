@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Model;
+declare(strict_types=1);
 
-use App\Model\User;
+namespace App\Model;
 
 class ArticleRepository
 {

@@ -8,7 +8,5 @@ class User
 {
     public int $id;
     public string $pseudo;
-    public string $login;
-    public string $mail;
-    public bool $isAdmin;
+    public string $isAdmin;
 }

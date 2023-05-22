@@ -1,13 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Router;
 
-use App\Controllers\article;
+use App\Controllers\Article;
 use App\Controllers\Homepage;
 use App\controllers\Articles;
 use App\Controllers\NotFoundController;
 use Twig\Environment;
 use \Twig\Loader\FilesystemLoader;
+use App\Controllers\CreateUser;
 
 class Router
 {
@@ -25,6 +28,7 @@ class Router
             match ($parameters['action']) {
                 'articles' => $this->getArticlesController(),
                 'article' => $this->getArticleController($_GET['id']),
+                'register' => $this->addUser($_POST['pseudo']),
                 default => $this->getNotFoundController(),
             };
         }
@@ -54,5 +58,10 @@ class Router
     {
         $notFoundController = new NotFoundController($this->twig);
         $notFoundController->showError();
+    }
+
+    public function addUser($pseudo, $mail, $password): void
+    {
+        if (isset($pseudo) isset($mail) && filter_var($mail, FILTER_VALIDATE_EMAIL))
     }
 }
