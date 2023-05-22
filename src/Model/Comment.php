@@ -6,6 +6,6 @@ namespace App\Model;
 
 class Comment
 {
-    private int $id;
+    public int $id;
     public string $content;
 }

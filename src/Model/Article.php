@@ -12,6 +12,5 @@ class Article
     public string $short;
     public string $status;
     public string $creationDate;
-    public int $idUser;
-    public string $mail;
+    public string $pseudo;
 }
