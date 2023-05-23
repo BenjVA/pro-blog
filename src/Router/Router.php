@@ -28,7 +28,7 @@ class Router
             match ($parameters['action']) {
                 'articles' => $this->getArticlesController(),
                 'article' => $this->getArticleController($_GET['id']),
-                'register' => $this->addUser($_POST['pseudo']),
+                'register' => $this->addUser($_POST['pseudo'], $_POST['mail'], $_POST['password']),
                 default => $this->getNotFoundController(),
             };
         }
@@ -62,6 +62,9 @@ class Router
 
     public function addUser($pseudo, $mail, $password): void
     {
-        if (isset($pseudo) isset($mail) && filter_var($mail, FILTER_VALIDATE_EMAIL))
+        if (isset($pseudo) && isset($mail) && filter_var($mail, FILTER_VALIDATE_EMAIL) && isset($password)) {
+            $addUser = new CreateUser($this->twig);
+            $addUser->signUp();
+        }
     }
 }
