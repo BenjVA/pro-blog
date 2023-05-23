@@ -1,0 +1,55 @@
+{% extends 'header.html.twig' %}
+
+{% block content %}
+    <body>
+        <div class="container">
+            <header class="masthead" style="background-image: url('/src/assets/img/home-bg.jpg')">
+                <div class="container position-relative px-4 px-lg-5">
+                    <div class="row gx-4 gx-lg-5 justify-content-center">
+                        <div class="col-md-10 col-lg-8 col-xl-7">
+                            <div class="site-heading">
+                                <h1>Clean Blog</h1>
+                                <span class="subheading">A Blog Theme by Start Bootstrap</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div class="row">
+                    <div class="col">
+                        {% for recentArticle in recentArticles %}
+                            <h2>{{ recentArticle.title }}</h2>
+                            <p>{{ recentArticle.short }}</p>
+                            <a href="?action=articles" class="btn btn-primary">Lien vers la page contenant tout les articles</a>
+                        {% endfor %}
+                    </div>
+            </div>
+            <div class="row">
+                <h2>Me contacter</h2>
+                    <form method="post" action="/index.php">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Nom :</label>
+                            <input type="text" class="form-control" id="name" placeholder="Entrez votre nom">
+                        </div>
+                        <div class="form-group">
+                            <label for="surname" class="form-label">Prénom :</label>
+                            <input type="text" class="form-control" id="surname" placeholder="Entrez votre prénom">
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email :</label>
+                            <input type="email" class="form-control" id="email" placeholder="email@exemple.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="message" class="form-label">Message :</label>
+                            <textarea class="form-control" id="message" placeholder="Votre message ici"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Envoyer</button>
+                    </form>
+                </div>
+            </div>
+        </body>
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}
