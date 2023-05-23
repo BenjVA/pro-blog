@@ -16,12 +16,12 @@
         </div>
     </header>
         <div class="container">
-            <div class="row">
-                <div class="col">
+            <div class="row gy-4 py-4 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
                     {% for article in articles %}
                         <h2>{{ article.title }}</h2>
                         <p>{{ article.short }}</p>
-                        <a href="?action=article&id={{ article.id }}" class="btn btn-primary">Btn vers single article</a>
+                        <a href="?action=article&id={{ article.id }}" class="btn btn-outline py-4">Lire cet article</a>
                     {% endfor %}
                 </div>
             </div>
