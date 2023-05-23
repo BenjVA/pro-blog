@@ -29,6 +29,7 @@ class Router
                 'articles' => $this->getArticlesController(),
                 'article' => $this->getArticleController($_GET['id']),
                 'register' => $this->addUser($_POST['pseudo'], $_POST['mail'], $_POST['password']),
+                'showSignUp' => $this->
                 default => $this->getNotFoundController(),
             };
         }
