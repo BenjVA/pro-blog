@@ -10,7 +10,7 @@ use App\controllers\Articles;
 use App\Controllers\NotFoundController;
 use Twig\Environment;
 use \Twig\Loader\FilesystemLoader;
-use App\Controllers\CreateUser;
+use App\Controllers\User;
 
 class Router
 {
@@ -28,8 +28,7 @@ class Router
             match ($parameters['action']) {
                 'articles' => $this->getArticlesController(),
                 'article' => $this->getArticleController($_GET['id']),
-                'register' => $this->addUser($_POST['pseudo'], $_POST['mail'], $_POST['password']),
-                'showSignUp' => $this->
+                'sign-up' => $this->getUserController(),
                 default => $this->getNotFoundController(),
             };
         }
@@ -61,11 +60,13 @@ class Router
         $notFoundController->showError();
     }
 
-    public function addUser($pseudo, $mail, $password): void
+    public function getUserController(): void
     {
-        if (isset($pseudo) && isset($mail) && filter_var($mail, FILTER_VALIDATE_EMAIL) && isset($password)) {
-            $addUser = new CreateUser($this->twig);
+       /* if (isset($pseudo) && isset($mail) && filter_var($mail, FILTER_VALIDATE_EMAIL) && isset($password)) {
+            $addUser = new User($this->twig);
             $addUser->signUp();
-        }
+        } */
+        $userController = new User($this->twig);
+        $userController->signUp();
     }
 }

@@ -1,7 +1,10 @@
 <?php
 
 
-namespace App\Model;
+namespace App\Repository;
+
+use App\Model\Article;
+use App\Model\DatabaseConnection;
 
 class ArticleRepository
 {

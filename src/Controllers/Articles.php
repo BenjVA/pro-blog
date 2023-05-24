@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\Model\DatabaseConnection;
+use App\Repository\ArticleRepository;
 use Twig\Environment;
-use App\Model\ArticleRepository;
 
 class Articles
 {
