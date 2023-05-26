@@ -6,8 +6,5 @@ namespace App\Model;
 
 class Login
 {
-    public function ()
-    {
-        
-    }
+
 }

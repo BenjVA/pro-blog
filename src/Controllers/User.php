@@ -17,7 +17,6 @@ class User
     public function signUp(): void
     {
         if (count($_POST) > 0) {
-
             $pseudo = $_POST['pseudo'];
             $mail = $_POST['mail'];
             $password = $_POST['password'];
@@ -28,9 +27,9 @@ class User
             if ($userRepository->getUser($mail) instanceof \App\Model\User) {
                 $this->twig->display('signUp.html.twig', ['errorMessage' => 'L\'adresse mail existe déjà']);
             }
-            $newUser = $signUp->addUser($pseudo, $mail, $password);
-        }
 
+            $signUp->addUser($pseudo, $mail, $password);
+        }
         $this->twig->display('signUp.html.twig');
     }
 }

@@ -10,7 +10,7 @@ class SignUp extends User
     {
         $pwd = password_hash($password, PASSWORD_DEFAULT);
         $statement = $this->connection->getConnection()->prepare(
-            "INSERT INTO problog.user(pseudo, mail, isAdmin, password) VALUES (?, ?, ?, ?)"
+            "INSERT INTO problog.user(pseudo, mail, password) VALUES (?, ?, ?)"
         );
 
         $affectedLine = $statement->execute([$pseudo, $mail, $pwd]);

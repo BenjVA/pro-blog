@@ -12,7 +12,7 @@ class UserRepository
 
     public function getUser($mail): ?User
     {
-        $statement = $this->connection->getConnection()->prepare(
+        $statement = $this->connection->getConnection()->query(
             "SELECT mail FROM user"
         );
         $statement->execute([$mail]);
