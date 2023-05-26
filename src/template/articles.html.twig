@@ -1,9 +1,9 @@
-{% extends 'header.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block content %}
 
     <body>
-    <header class="masthead" style="background-image: url('/src/assets/img/about-bg.jpg')">
+    <header class="masthead" style="background-image: url('/src/assets/Public/img/about-bg.jpg')">
         <div class="container position-relative px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
@@ -17,11 +17,12 @@
     </header>
         <div class="container">
             <div class="row gy-4 py-4 justify-content-center">
-                <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="col-md-10 col-lg-8 col-xl-7 text-center">
                     {% for article in articles %}
                         <h2>{{ article.title }}</h2>
                         <p>{{ article.short }}</p>
                         <a href="?action=article&id={{ article.id }}" class="btn btn-outline py-4">Lire cet article</a>
+                        <hr class="my-4">
                     {% endfor %}
                 </div>
             </div>

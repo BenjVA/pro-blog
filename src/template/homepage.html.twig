@@ -1,57 +1,59 @@
-{% extends 'header.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block content %}
-    <body>
-        <header class="masthead" style="background-image: url('/src/assets/img/home-bg.jpg')">
-            <div class="container position-relative px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-7">
-                        <div class="site-heading">
-                            <h1>Mon Blog</h1>
-                            <span class="subheading">Bienvenue sur mon blog pro</span>
-                        </div>
+
+    <header class="masthead" style="background-image: url('/src/assets/Public/img/home-bg.jpg')">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="site-heading">
+                        <h1>Mon Blog</h1>
+                        <span class="subheading">Phrase d'accroche ici</span>
                     </div>
                 </div>
             </div>
-        </header>
-        <div class="row gx-4 gx-lg-5 justify-content-center">
-                <div class="col-md-10 col-lg-8 col-xl-7">
-                    {% for recentArticle in recentArticles %}
-                        <h2>{{ recentArticle.title }}</h2>
-                        <p>{{ recentArticle.short }}</p>
-                        <a href="?action=articles" class="btn btn-outline py-4">Voir les différents articles</a>
-                    {% endfor %}
-                </div>
         </div>
-        <div class="row gx-4 gx-lg-5 justify-content-center">
-            <div class="col-md-10 col-lg-8 col-xl-7">
-                <h2>Me contacter</h2>
-                    <form method="post" action="/index.php">
-                        <div class="form-group">
-                            <label for="name" class="form-label">Nom :</label>
-                            <input type="text" class="form-control" id="name" placeholder="Entrez votre nom">
-                        </div>
-                        <div class="form-group">
-                            <label for="surname" class="form-label">Prénom :</label>
-                            <input type="text" class="form-control" id="surname" placeholder="Entrez votre prénom">
-                        </div>
-                        <div class="form-group">
-                            <label for="email" class="form-label">Email :</label>
-                            <input type="email" class="form-control" id="email" placeholder="email@exemple.com">
-                        </div>
-                        <div class="form-group">
-                            <label for="message" class="form-label">Message :</label>
-                            <textarea class="form-control" id="message" placeholder="Votre message ici"></textarea>
-                        </div>
-                    
-                        <button type="submit" class="btn btn-outline py-4">Envoyer</button>
-                    </form>
+    </header>
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7 text-center">
+                {% for recentArticle in recentArticles %}
+                    <h2>{{ recentArticle.title }}</h2>
+                    <p>{{ recentArticle.short }}</p>
+                    <a href="?action=articles" class="btn btn-outline py-4">Voir les différents articles</a>
+                    <hr class="my-4">
+                {% endfor %}
             </div>
+    </div>
+    <div class="text-center">
+        <a href="/src/assets/Public/CV/CV.pdf">Téléchargez ici mon CV</a>
+    </div>
+    <hr class="my-4">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            <h2>Me contacter</h2>
+                <form method="post" action="/index.php">
+                    <div class="form-group">
+                        <label for="name" class="form-label">Nom :</label>
+                        <input type="text" class="form-control" id="name" placeholder="Entrez votre nom">
+                    </div>
+                    <div class="form-group">
+                        <label for="surname" class="form-label">Prénom :</label>
+                        <input type="text" class="form-control" id="surname" placeholder="Entrez votre prénom">
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email :</label>
+                        <input type="email" class="form-control" id="email" placeholder="email@exemple.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="message" class="form-label">Message :</label>
+                        <textarea class="form-control" id="message" placeholder="Votre message ici"></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-outline-dark">Envoyer</button>
+                    </div>
+                </form>
         </div>
-    </body>
-                      
-{% endblock %}
+    </div>
 
-{% block footer %}
 
 {% endblock %}
