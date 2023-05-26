@@ -13,5 +13,4 @@ class Article
     public string $status;
     public string $creationDate;
     public int $idUser;
-    public string $mail;
 }

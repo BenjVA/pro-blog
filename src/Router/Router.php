@@ -55,8 +55,4 @@ class Router
         $notFoundController = new NotFoundController($this->twig);
         $notFoundController->showError();
     }
-
-    public function addUser($pseudo, $mail, $password): void
-    {
-    }
 }
