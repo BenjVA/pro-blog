@@ -5,7 +5,6 @@ namespace App\Repository;
 
 use App\Model\DatabaseConnection;
 use App\Model\User;
-use PDO;
 
 class UserRepository
 {

@@ -48,6 +48,7 @@ class Router
         if ($id && $id > 0) {
             $articleController = new Article($this->twig);
             $articleController->showArticle($id);
+            $articleController->showComments($id);
         }
         else {
             $this->getNotFoundController();
@@ -67,6 +68,17 @@ class Router
             $addUser->signUp();
         } */
         $userController = new User($this->twig);
-        $userController->signUp();
+        $userController->ShowSignUp();
     }
+
+    /* public function getCommentsController($idArticle): void
+    {
+        if ($idArticle && $idArticle > 0) {
+            $articleController = new Article($this->twig);
+            $articleController->showComments($idArticle);
+        }
+        else {
+            $this->getNotFoundController();
+        }
+    } */
 }

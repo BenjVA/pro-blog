@@ -13,7 +13,7 @@ class User
 
     }
 
-    public function signUp(): void
+    public function showSignUp(): void
     {
         if (count($_POST) > 0) {
             $pseudo = $_POST['pseudo'];
