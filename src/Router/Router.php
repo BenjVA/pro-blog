@@ -29,6 +29,7 @@ class Router
                 'articles' => $this->getArticlesController(),
                 'article' => $this->getArticleController($_GET['id']),
                 'sign-up' => $this->getUserController(),
+                'add-user' => $this->getAddUserController(),
                 default => $this->getNotFoundController(),
             };
         }
@@ -37,13 +38,13 @@ class Router
         }
     }
 
-    public function getArticlesController(): void
+    private function getArticlesController(): void
     {
         $articlesController = new Articles($this->twig);
         $articlesController->showArticles();
     }
 
-    public function getArticleController($id): void
+    private function getArticleController($id): void
     {
         if ($id && $id > 0) {
             $articleController = new Article($this->twig);
@@ -54,19 +55,26 @@ class Router
         }
     }
 
-    public function getNotFoundController(): void
+    private function getNotFoundController(): void
     {
         $notFoundController = new NotFoundController($this->twig);
         $notFoundController->showError();
     }
 
-    public function getUserController(): void
+    private function getUserController(): void
     {
-       /* if (isset($pseudo) && isset($mail) && filter_var($mail, FILTER_VALIDATE_EMAIL) && isset($password)) {
-            $addUser = new User($this->twig);
-            $addUser->signUp();
-        } */
-        $userController = new User($this->twig);
-        $userController->signUp();
+            $userController = new User($this->twig);
+            $userController->showSignUp();
+    }
+
+    private function getAddUserController(): void
+    {
+        if (isset($pseudo) && isset($mail) && filter_var($mail, FILTER_VALIDATE_EMAIL) && isset($password)) {
+            $addUserController = new User($this->twig);
+            $addUserController->signUp();
+        }
+        else {
+            $this->getNotFoundController();
+        }
     }
 }

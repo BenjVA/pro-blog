@@ -13,6 +13,10 @@ class User
 
     }
 
+    public function showSignUp(): void
+    {
+        $this->twig->display('signUp.html.Twig');
+    }
     public function signUp(): void
     {
         if (count($_POST) > 0) {
@@ -22,11 +26,10 @@ class User
 
             $signUp = new UserRepository();
             $signUp->connection = new DatabaseConnection();
-            if ($signUp->getUser($mail) instanceof \App\Model\User) {
+            $success = $signUp->addUser($pseudo, $mail, $password);
+            if ($success === false) {
                 $this->twig->display('signUp.html.twig', ['errorMessage' => 'L\'adresse mail existe déjà']);
             }
-
-            $signUp->addUser($pseudo, $mail, $password);
         }
         $this->twig->display('signUp.html.twig', ['validMessage' => 'Vous avez bien été enregistré !']);
     }
