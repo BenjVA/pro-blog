@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Model\DatabaseConnection;
-use App\Model\SignUp;
 use App\Repository\UserRepository;
 use Twig\Environment;
 
@@ -21,15 +20,14 @@ class User
             $mail = $_POST['mail'];
             $password = $_POST['password'];
 
-            $signUp = new SignUp();
+            $signUp = new UserRepository();
             $signUp->connection = new DatabaseConnection();
-            $userRepository = new UserRepository();
-            if ($userRepository->getUser($mail) instanceof \App\Model\User) {
+            if ($signUp->getUser($mail) instanceof \App\Model\User) {
                 $this->twig->display('signUp.html.twig', ['errorMessage' => 'L\'adresse mail existe déjà']);
             }
 
             $signUp->addUser($pseudo, $mail, $password);
         }
-        $this->twig->display('signUp.html.twig');
+        $this->twig->display('signUp.html.twig', ['validMessage' => 'Vous avez bien été enregistré !']);
     }
 }
