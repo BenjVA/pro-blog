@@ -50,8 +50,12 @@ class ArticleRepository
     public function getArticle($id): Article
     {
         $statement = $this->connection->getConnection()->prepare(
-            "SELECT article.id, user.pseudo, title, content, DATE_FORMAT(creationDate, '%d/%m/%Y à %Hh%imin%ss') AS creationDate FROM article 
-                        INNER JOIN user ON article.idUser = user.id WHERE article.id = ?"
+            "SELECT article.id, user.pseudo, title, content, 
+                    DATE_FORMAT(creationDate, '%d/%m/%Y à %Hh%imin%ss') AS creationDate, 
+                    DATE_FORMAT(updatedAt, '%d/%m/%Y à %Hh%imin%ss') AS updatedAt
+                    FROM article 
+                    INNER JOIN user ON article.idUser = user.id 
+                    WHERE article.id = ?"
         );
         $statement->execute([$id]);
 
@@ -60,6 +64,7 @@ class ArticleRepository
         $article = new Article();
         $article->title = $row['title'];
         $article->creationDate = $row['creationDate'];
+        $article->updatedAt = $row['updatedAt'];
         $article->content = $row['content'];
         $article->id = $row['id'];
         $article->pseudo = $row['pseudo'];

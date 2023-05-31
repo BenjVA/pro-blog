@@ -13,4 +13,5 @@ class Article
     public string $status;
     public string $creationDate;
     public string $pseudo;
+    public string $updatedAt;
 }
