@@ -13,13 +13,17 @@ class UserRepository
 
     public function getUser($mail): ?User
     {
-        $statement = $this->connection->getConnection()->query(
-            "SELECT mail FROM user"
+        $statement = $this->connection->getConnection()->prepare(
+            "SELECT * FROM user WHERE mail = :mail"
         );
-        $statement->execute([$mail]);
-
+        $statement->execute([
+            'mail' => $mail
+        ]);
 
         $row = $statement->fetch();
+        if (!$row) {
+            return null;
+        }
         $user = new User();
         $user->mail = $row['mail'];
 
@@ -28,15 +32,15 @@ class UserRepository
 
     public function addUser(string $pseudo, string $mail, string $password): bool
     {
-        $pwd = password_hash($password, PASSWORD_DEFAULT);
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         $statement = $this->connection->getConnection()->prepare(
-            "INSERT INTO problog.user(pseudo, mail, password) VALUES (?, ?, ?)"
+            "INSERT INTO problog.user(pseudo, mail, password) VALUES (:pseudo, :mail, :password)"
         );
-        $affectedLine = $statement->execute(array(
+        $affectedLine = $statement->execute([
             'pseudo' => $pseudo,
             'mail'=> $mail,
-            'password' => $pwd)
-        );
+            'password' => $hashedPassword
+        ]);
 
         return ($affectedLine > 0);
     }
