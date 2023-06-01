@@ -13,12 +13,12 @@ class Comment
 
     }
 
-    public function showComments($idArticle): void
+    /*public function showComments($idArticle): void
     {
         $commentRepository = new CommentRepository();
         $commentRepository->connection = new DatabaseConnection();
         $comments = $commentRepository->getComments($idArticle);
 
         $this->twig->display('article.html.twig', ['comments' => $comments]);
-    }
+    }*/
 }

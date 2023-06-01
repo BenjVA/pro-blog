@@ -82,9 +82,9 @@ class Router
         }
     } */
 
-    public function getCommentsController($id): void
+    /*public function getCommentsController($id): void
     {
         $commentController = new Comment($this->twig);
         $commentController->showComments($id);
-    }
+    }*/
 }

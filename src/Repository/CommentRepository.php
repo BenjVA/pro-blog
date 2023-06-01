@@ -12,11 +12,11 @@ class CommentRepository
     public function getComments($idArticle): array
     {
         $statement = $this->connection->getConnection()->prepare(
-            "SELECT *
+            "SELECT comment.id, pseudo, dateComment, comment.content, idArticle
                         FROM comment
                         INNER JOIN article ON comment.idArticle = article.id
                         INNER JOIN user ON comment.idUser = user.id
-                        WHERE article.id = ?
+                        WHERE article.id = :idArticle
                         ORDER BY dateComment DESC"
         );
         $statement->execute([
