@@ -12,7 +12,11 @@ class ArticleRepository
     public function getRecentArticles(): array
     {
         $statement = $this->connection->getConnection()->query(
-            "SELECT id, title, short, DATE_FORMAT(creationDate, '%d/%m/%Y à %Hh%imin%ss') AS creationDate FROM article ORDER BY creationDate DESC LIMIT 0, 3"
+            "SELECT *
+                        FROM article
+                        ORDER BY creationDate
+                        DESC
+                        LIMIT 0, 3"
         );
         $recentArticles = [];
         while (($row = $statement->fetch())) {
@@ -31,7 +35,10 @@ class ArticleRepository
     public function getArticles(): array
     {
         $statement = $this->connection->getConnection()->query(
-            "SELECT id, title, short, DATE_FORMAT(creationDate, '%d/%m/%Y à %Hh%imin%ss') AS creationDate FROM article ORDER BY creationDate DESC"
+            "SELECT *
+                        FROM article
+                        ORDER BY creationDate
+                        DESC"
         );
         $articles = [];
         while (($row = $statement->fetch())) {

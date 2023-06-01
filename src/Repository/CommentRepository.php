@@ -12,13 +12,16 @@ class CommentRepository
     public function getComments($idArticle): array
     {
         $statement = $this->connection->getConnection()->prepare(
-            "SELECT article.id, comment.id, user.pseudo, comment.content, DATE_FORMAT(dateComment, '%d/%m/%Y à %Hh%imin%ss') AS dateComment 
+            "SELECT *
                         FROM comment
-                        INNER JOIN article ON comment.idArticle = article.id 
-                        INNER JOIN user ON comment.idUser = user.id 
+                        INNER JOIN article ON comment.idArticle = article.id
+                        INNER JOIN user ON comment.idUser = user.id
+                        WHERE article.id = ?
                         ORDER BY dateComment DESC"
         );
-        $statement->execute([$idArticle]);
+        $statement->execute([
+            'idArticle' => $idArticle
+        ]);
 
         $comments = [];
         while (($row = $statement->fetch())) {

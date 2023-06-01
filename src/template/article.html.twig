@@ -35,7 +35,6 @@
                     {% for comment in comments %}
                         <p>{{ comment.content }}</p>
                         <p>Par {{ comment.pseudo }} le {{ comment.dateComment }}</p>
-                        <a href="?action=article&id={{ comment.id }}" class="btn btn-outline py-4">Modifier commentaire</a>
                         <hr class="my-4">
                     {% endfor %}
                 </div>

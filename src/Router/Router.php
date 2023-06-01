@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Router;
 
 use App\Controllers\Article;
+use App\Controllers\Comment;
 use App\Controllers\Homepage;
 use App\controllers\Articles;
 use App\Controllers\NotFoundController;
@@ -48,7 +49,6 @@ class Router
         if ($id && $id > 0) {
             $articleController = new Article($this->twig);
             $articleController->showArticle($id);
-            $articleController->showComments($id);
         }
         else {
             $this->getNotFoundController();
@@ -81,4 +81,10 @@ class Router
             $this->getNotFoundController();
         }
     } */
+
+    public function getCommentsController($id): void
+    {
+        $commentController = new Comment($this->twig);
+        $commentController->showComments($id);
+    }
 }

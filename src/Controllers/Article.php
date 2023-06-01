@@ -6,7 +6,6 @@ namespace App\Controllers;
 
 use App\Model\DatabaseConnection;
 use App\Repository\ArticleRepository;
-use App\Repository\CommentRepository;
 use Twig\Environment;
 
 class Article
@@ -23,15 +22,5 @@ class Article
         $article = $articleRepository->getArticle($id);
 
         $this->twig->display('article.html.twig', ['article' => $article]);
-    }
-
-
-    public function showComments($id): void
-    {
-        $commentRepository = new CommentRepository();
-        $commentRepository->connection = new DatabaseConnection();
-        $comments = $commentRepository->getComments($id);
-
-        $this->twig->display('article.html.twig', ['comments' => $comments]);
     }
 }
