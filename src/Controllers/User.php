@@ -22,8 +22,9 @@ class User
 
             $signUp = new UserRepository();
             $signUp->connection = new DatabaseConnection();
-            if ($signUp->getUser($mail) instanceof \App\Model\User) {
-                $errorMessage = 'L\'adresse mail existe déjà';
+
+            if ($signUp->getUser($pseudo, $mail) instanceof \App\Model\User) {
+                $errorMessage = 'Le pseudo ou l\'adresse mail existe(nt) déjà';
             }
             else {
                 $signUp->addUser($pseudo, $mail, $password);

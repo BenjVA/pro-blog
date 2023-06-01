@@ -8,5 +8,5 @@ class User
     public string $pseudo;
     public string $isAdmin;
     public string $password;
-    public ?string $mail;
+    public string $mail;
 }

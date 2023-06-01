@@ -11,12 +11,13 @@ class UserRepository
 {
     public DatabaseConnection $connection;
 
-    public function getUser($mail): ?User
+    public function getUser($pseudo, $mail): ?User
     {
         $statement = $this->connection->getConnection()->prepare(
-            "SELECT * FROM user WHERE mail = :mail"
+            "SELECT * FROM user WHERE pseudo = :pseudo AND mail = :mail"
         );
         $statement->execute([
+            'pseudo' => $pseudo,
             'mail' => $mail
         ]);
 
@@ -25,6 +26,7 @@ class UserRepository
             return null;
         }
         $user = new User();
+        $user->pseudo = $row['pseudo'];
         $user->mail = $row['mail'];
 
         return $user;
