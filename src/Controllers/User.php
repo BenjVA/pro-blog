@@ -23,8 +23,11 @@ class User
             $signUp = new UserRepository();
             $signUp->connection = new DatabaseConnection();
 
-            if ($signUp->getUser($pseudo, $mail) instanceof \App\Model\User) {
-                $errorMessage = 'Le pseudo ou l\'adresse mail existe(nt) déjà';
+            if ($signUp->getUserPseudo($pseudo) instanceof \App\Model\User) {
+                $samePseudoMessage = 'Le pseudo existe déjà';
+            }
+            elseif ($signUp->getUserMail($mail) instanceof \App\Model\User) {
+                $sameMailMessage = 'L\'adresse mail existe déjà';
             }
             else {
                 $signUp->addUser($pseudo, $mail, $password);
@@ -32,7 +35,8 @@ class User
             }
         }
         $this->twig->display('signUp.html.Twig', [
-            'errorMessage' => $errorMessage ?? null,
+            'samePseudoMessage' => $samePseudoMessage ?? null,
+            'sameMailMessage' => $sameMailMessage ?? null,
             'validMessage' => $validMessage ?? null
         ]);
     }

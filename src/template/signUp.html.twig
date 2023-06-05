@@ -15,11 +15,14 @@
     </header>
     <div class="row gx-4 gx-lg-5 justify-content-center">
         <div class="col-md-10 col-lg-8 col-xl-7">
-            {% if errorMessage %}
-                <p class="text-danger">{{ errorMessage }}</p>
+            {% if samePseudoMessage %}
+                <p class="text-danger">{{ samePseudoMessage }}</p>
+            {% endif %}
+            {% if sameMailMessage %}
+                <p class="text-danger">{{ sameMailMessage }}</p>
+            {% endif %}
             {% if validMessage %}
                 <p class="text-success">{{ ValidMessage }}</p>
-            {% endif %}
             {% endif %}
             <form method="post" action="/?action=sign-up">
                 <div class="form-group">

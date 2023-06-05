@@ -5,20 +5,18 @@ namespace App\Repository;
 
 use App\Model\DatabaseConnection;
 use App\Model\User;
-use PDO;
 
 class UserRepository
 {
     public DatabaseConnection $connection;
 
-    public function getUser($pseudo, $mail): ?User
+    public function getUserPseudo($pseudo): ?User
     {
         $statement = $this->connection->getConnection()->prepare(
-            "SELECT * FROM user WHERE pseudo = :pseudo AND mail = :mail"
+            "SELECT * FROM user WHERE pseudo = :pseudo"
         );
         $statement->execute([
             'pseudo' => $pseudo,
-            'mail' => $mail
         ]);
 
         $row = $statement->fetch();
@@ -27,6 +25,24 @@ class UserRepository
         }
         $user = new User();
         $user->pseudo = $row['pseudo'];
+
+        return $user;
+    }
+
+    public function getUserMail($mail): ?User
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            "SELECT * FROM user WHERE mail = :mail"
+        );
+        $statement->execute([
+            'mail' => $mail,
+        ]);
+
+        $row = $statement->fetch();
+        if (!$row) {
+            return null;
+        }
+        $user = new User();
         $user->mail = $row['mail'];
 
         return $user;
