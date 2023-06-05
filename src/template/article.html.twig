@@ -32,6 +32,7 @@
         <div class="container">
             <div class="row gy-4 py-4 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7 text-center">
+                    <h2>Commentaires</h2>
                     {% for comment in comments %}
                         <p>{{ comment.content }}</p>
                         <p>Par {{ comment.pseudo }} le {{ comment.dateComment }}</p>
