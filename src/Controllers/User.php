@@ -34,10 +34,32 @@ class User
                 $validMessage = 'Vous avez bien été enregistré !';
             }
         }
-        $this->twig->display('signUp.html.Twig', [
+        $this->twig->display('signUp.html.twig', [
             'samePseudoMessage' => $samePseudoMessage ?? null,
             'sameMailMessage' => $sameMailMessage ?? null,
             'validMessage' => $validMessage ?? null
         ]);
+    }
+
+    public function loginAction(): void
+    {
+        if (count($_POST) > 0) {
+            $mail = $_POST['mail'];
+            $password = $_POST['password'];
+
+            $login = new UserRepository();
+            $login->connection = new DatabaseConnection();
+
+            if ($loginSuccessful = $login->connectUser($mail, $password)) {
+                $loginSuccessful = 'Connexion réussie !';
+            }
+            else {
+                $loginFailed = 'Connexion échouée';
+            }
+            $this->twig->display('login.html.twig', [
+                'loginSuccessful' => $loginSuccessful ?? null,
+                'loginFailed' => $loginFailed ?? null
+            ]);
+        }
     }
 }

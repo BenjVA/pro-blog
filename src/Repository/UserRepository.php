@@ -48,6 +48,29 @@ class UserRepository
         return $user;
     }
 
+    public function connectUser($mail, $password): ?User
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            "SELECT * FROM user WHERE mail = :mail AND password = :password"
+        );
+        $statement->execute([
+            'mail' => $mail,
+            'password' => $password
+        ]);
+
+        $row = $statement->fetch();
+        if (!$row) {
+            return null;
+        }
+        password_verify($_POST['password'], $row['password']);
+        $user = new User();
+        $user->mail = $row['mail'];
+        $user->password = $row['password'];
+
+        return $user;
+
+    }
+
     public function addUser(string $pseudo, string $mail, string $password): bool
     {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);

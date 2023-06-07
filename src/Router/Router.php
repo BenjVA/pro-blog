@@ -34,6 +34,7 @@ class Router
                 'articles' => $this->getArticlesController(),
                 'article' => $this->getArticleController($_GET['id']),
                 'sign-up' => $this->getUserController(),
+                'login' => $this->getLoginController(),
                 default => $this->getNotFoundController(),
             };
         }
@@ -69,5 +70,11 @@ class Router
     {
             $userController = new User($this->twig);
             $userController->signUpAction();
+    }
+
+    public function getLoginController(): void
+    {
+        $loginController = new User($this->twig);
+        $loginController->loginAction();
     }
 }
