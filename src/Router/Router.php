@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Router;
 
-use App\Controllers\Article;
 use App\Controllers\Homepage;
 use App\controllers\Articles;
 use App\Controllers\NotFoundController;
@@ -12,6 +11,9 @@ use Twig\Environment;
 use \Twig\Loader\FilesystemLoader;
 use App\Controllers\User;
 use \Twig\Extension;
+use App\Controllers\Article;
+
+
 
 class Router
 {
@@ -20,10 +22,6 @@ class Router
     public function __construct()
     {
         $loader = new FilesystemLoader('src/template');
-        $twig = new Environment($loader, [
-            'debug' => true,
-        ]);
-        $twig->addExtension(new Extension\DebugExtension());
         $this->twig = new Environment($loader);
     }
 
