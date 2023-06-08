@@ -7,6 +7,7 @@ namespace App\Router;
 use App\Controllers\Homepage;
 use App\controllers\Articles;
 use App\Controllers\NotFoundController;
+use App\Session;
 use Twig\Environment;
 use \Twig\Loader\FilesystemLoader;
 use App\Controllers\User;
@@ -34,6 +35,7 @@ class Router
                 'article' => $this->getArticleController($_GET['id']),
                 'sign-up' => $this->getUserController(),
                 'login' => $this->getLoginController(),
+                'logout' => $this->getLogoutController(),
                 default => $this->getNotFoundController(),
             };
         }
@@ -42,13 +44,13 @@ class Router
         }
     }
 
-    public function getArticlesController(): void
+    private function getArticlesController(): void
     {
         $articlesController = new Articles($this->twig);
         $articlesController->showArticles();
     }
 
-    public function getArticleController($id): void
+    private function getArticleController($id): void
     {
         if ($id && $id > 0) {
             $articleController = new Article($this->twig);
@@ -59,21 +61,27 @@ class Router
         }
     }
 
-    public function getNotFoundController(): void
+    private function getNotFoundController(): void
     {
         $notFoundController = new NotFoundController($this->twig);
         $notFoundController->showError();
     }
 
-    public function getUserController(): void
+    private function getUserController(): void
     {
             $userController = new User($this->twig);
             $userController->signUpAction();
     }
 
-    public function getLoginController(): void
+    private function getLoginController(): void
     {
         $loginController = new User($this->twig);
         $loginController->loginAction();
+    }
+
+    private function getLogoutController(): void
+    {
+        $logoutController = new User($this->twig);
+        $logoutController->logoutAction();
     }
 }

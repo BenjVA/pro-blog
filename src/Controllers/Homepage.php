@@ -7,12 +7,14 @@ namespace App\Controllers;
 use App\Model\DatabaseConnection;
 use App\Repository\ArticleRepository;
 use Twig\Environment;
+use Twig\Extension\DebugExtension;
 
 class Homepage
 {
     public function __construct(public Environment $twig)
     {
-
+        $this->twig->addExtension(new DebugExtension());
+        $this->twig->addGlobal('session', $_SESSION);
     }
 
     public function showHomepage(): void
@@ -21,6 +23,8 @@ class Homepage
         $articleRepository->connection = new DatabaseConnection();
         $recentArticles = $articleRepository->getRecentArticles();
 
-        $this->twig->display('homepage.html.twig', ['recentArticles' => $recentArticles]);
+        $this->twig->display('homepage.html.twig', ['recentArticles' => $recentArticles,
+            'user' => $user ?? null
+        ]);
     }
 }

@@ -12,6 +12,7 @@ class User
     public function __construct(public Environment $twig)
     {
         $this->twig->addExtension(new DebugExtension());
+        $this->twig->addGlobal('session', $_SESSION);
     }
 
     public function signUpAction(): void
@@ -63,6 +64,15 @@ class User
             'loginSuccessful' => $loginSuccessful ?? null,
             'user' => $user ?? null,
             'loginFailed' => $loginFailed ?? null
+        ]);
+    }
+
+    public function logoutAction(): void
+    {
+        session_unset();
+        session_destroy();
+        $this->twig->display('homepage.html.twig', [
+            'logoutSuccessful' => 'Vous êtes bien déconnecté, à bientôt !'
         ]);
     }
 }

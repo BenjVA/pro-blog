@@ -73,7 +73,6 @@ class UserRepository
         $user->isAdmin = $row['isAdmin'];
         Session::setSession('user', $user);
 
-
         return $user;
 
     }
