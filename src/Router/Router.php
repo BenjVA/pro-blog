@@ -10,7 +10,6 @@ use App\Controllers\NotFoundController;
 use Twig\Environment;
 use \Twig\Loader\FilesystemLoader;
 use App\Controllers\User;
-use \Twig\Extension;
 use App\Controllers\Article;
 
 
@@ -22,7 +21,9 @@ class Router
     public function __construct()
     {
         $loader = new FilesystemLoader('src/template');
-        $this->twig = new Environment($loader);
+        $this->twig = new Environment($loader, [
+            'debug' => true,
+        ]);
     }
 
     public function getController(array $parameters): void

@@ -5,6 +5,7 @@ namespace App\Repository;
 
 use App\Model\DatabaseConnection;
 use App\Model\User;
+use App\Session;
 
 class UserRepository
 {
@@ -48,24 +49,30 @@ class UserRepository
         return $user;
     }
 
-    public function connectUser($mail, $password): ?User
+    public function connectUser(string $mail, string $password): ?User
     {
         $statement = $this->connection->getConnection()->prepare(
-            "SELECT * FROM user WHERE mail = :mail AND password = :password"
+            "SELECT * FROM user WHERE mail = :mail"
         );
         $statement->execute([
             'mail' => $mail,
-            'password' => $password
         ]);
 
         $row = $statement->fetch();
         if (!$row) {
             return null;
         }
-        password_verify($_POST['password'], $row['password']);
+        $isRightPassword = password_verify($password, $row['password']);
+        if (!$isRightPassword) {
+            return null;
+        }
         $user = new User();
         $user->mail = $row['mail'];
-        $user->password = $row['password'];
+        $user->pseudo = $row['pseudo'];
+        $user->id = $row['id'];
+        $user->isAdmin = $row['isAdmin'];
+        Session::setSession('user', $user);
+
 
         return $user;
 

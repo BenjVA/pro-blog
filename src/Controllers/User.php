@@ -5,12 +5,13 @@ namespace App\Controllers;
 use App\Model\DatabaseConnection;
 use App\Repository\UserRepository;
 use Twig\Environment;
+use Twig\Extension\DebugExtension;
 
 class User
 {
     public function __construct(public Environment $twig)
     {
-
+        $this->twig->addExtension(new DebugExtension());
     }
 
     public function signUpAction(): void
@@ -49,17 +50,19 @@ class User
 
             $login = new UserRepository();
             $login->connection = new DatabaseConnection();
+            $user = $login->connectUser($mail, $password);
 
-            if ($loginSuccessful = $login->connectUser($mail, $password)) {
+            if ($user) {
                 $loginSuccessful = 'Connexion réussie !';
             }
             else {
                 $loginFailed = 'Connexion échouée';
             }
-            $this->twig->display('login.html.twig', [
-                'loginSuccessful' => $loginSuccessful ?? null,
-                'loginFailed' => $loginFailed ?? null
-            ]);
         }
+        $this->twig->display('login.html.twig', [
+            'loginSuccessful' => $loginSuccessful ?? null,
+            'user' => $user ?? null,
+            'loginFailed' => $loginFailed ?? null
+        ]);
     }
 }
