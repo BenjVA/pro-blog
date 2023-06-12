@@ -18,7 +18,7 @@
                 <div class="col-md-10 col-lg-8 col-xl-7 text-center">
                     {% for article in articles %}
                         <h2>{{ article.title }}</h2>
-                        <small>posté le {{ article.creationDate }}</small>
+                        <small>posté le {{ article.creationDate }} édité le {{ article.updatedAt }}</small>
                         <p>{{ article.short }}</p>
                         <a href="?action=article&id={{ article.id }}" class="btn btn-outline py-4">Lire cet article</a>
                         <hr class="my-4">

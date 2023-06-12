@@ -15,7 +15,7 @@ class ArticleRepository
         $statement = $this->connection->getConnection()->query(
             "SELECT *
              FROM article
-             ORDER BY creationDate
+             ORDER BY updatedAt
              DESC
              LIMIT 0, 3"
         );
@@ -24,6 +24,7 @@ class ArticleRepository
             $recentArticle = new Article();
             $recentArticle->title = $row['title'];
             $recentArticle->creationDate = $row['creationDate'];
+            $recentArticle->updatedAt = $row['updatedAt'];
             $recentArticle->short = $row['short'];
             $recentArticle->id = $row['id'];
 
@@ -38,7 +39,7 @@ class ArticleRepository
         $statement = $this->connection->getConnection()->query(
             "SELECT *
             FROM article
-            ORDER BY creationDate
+            ORDER BY updatedAt
             DESC"
         );
         $articles = [];
@@ -46,6 +47,7 @@ class ArticleRepository
             $article = new Article();
             $article->title = $row['title'];
             $article->creationDate = $row['creationDate'];
+            $article->updatedAt = $row['updatedAt'];
             $article->short = $row['short'];
             $article->id = $row['id'];
 
@@ -55,7 +57,7 @@ class ArticleRepository
         return $articles;
     }
 
-    public function getArticle($id): Article
+    public function getArticle(string $id): Article
     {
         $statement = $this->connection->getConnection()->prepare(
             "SELECT article.id, user.pseudo, title, content, 

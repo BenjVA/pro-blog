@@ -34,6 +34,7 @@ class Router
                 'sign-up' => $this->getUserController(),
                 'login' => $this->getLoginController(),
                 'logout' => $this->getLogoutController(),
+                'addComment' => $this->getAddCommentController(),
                 default => $this->getNotFoundController(),
             };
         }
@@ -48,7 +49,7 @@ class Router
         $articlesController->showArticles();
     }
 
-    private function getArticleController($id): void
+    private function getArticleController(string $id): void
     {
         if ($id && $id > 0) {
             $articleController = new Article($this->twig);
@@ -81,5 +82,11 @@ class Router
     {
         $logoutController = new User($this->twig);
         $logoutController->logoutAction();
+    }
+
+    private function getAddCommentController(): void
+    {
+        $commentController = new Article($this->twig);
+        $commentController->addComment();
     }
 }

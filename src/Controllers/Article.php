@@ -18,7 +18,7 @@ class Article
         $this->twig->addGlobal('session', $_SESSION);
     }
 
-    public function showArticle($id): void
+    public function showArticle(string $id): void
     {
         $articleRepository = new ArticleRepository();
         $commentRepository = new CommentRepository();
@@ -29,5 +29,25 @@ class Article
         $comments = $commentRepository->getComments($id);
 
         $this->twig->display('article.html.twig', ['article' => $article, 'comments' => $comments]);
+    }
+
+    public function addComment(): void
+    {
+        if (count($_POST) > 0) {
+            $idArticle = $_POST['idArticle'];
+            $idUser = $_SESSION['idUser'];
+            $content = $_POST['commentary'];
+
+            $comment = new CommentRepository();
+            $comment->connection = new DatabaseConnection();
+            $addComment = $comment->addComment($idArticle, $idUser, $content);
+
+            if ($addComment) {
+                $this->twig->display('article.html.twig', [
+                    'waitingValidation' => 'Votre commentaire est en attente de validation !'
+                ]);
+            }
+        }
+        $this->twig->display('notFound.html.twig');
     }
 }
