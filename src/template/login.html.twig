@@ -6,7 +6,7 @@
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <div class="page-heading">
-                        <h1>Inscription</h1>
+                        <h1>Connexion</h1>
                         <span class="subheading"></span>
                     </div>
                 </div>
@@ -15,20 +15,14 @@
     </header>
     <div class="row gx-4 gx-lg-5 justify-content-center">
         <div class="col-md-10 col-lg-8 col-xl-7">
-            {% if samePseudoMessage %}
-                <p class="text-danger">{{ samePseudoMessage }}</p>
+            {{ dump(session) }}
+            {% if loginSuccessful %}
+                <h2 class="text-success">Bienvenue {{ user.pseudo }} !</h2>
             {% endif %}
-            {% if sameMailMessage %}
-                <p class="text-danger">{{ sameMailMessage }}</p>
+            {% if loginFailed %}
+                <p class="text-danger">{{ loginFailed }}</p>
             {% endif %}
-            {% if validMessage %}
-                <p class="text-success">{{ ValidMessage }}</p>
-            {% endif %}
-            <form method="post" action="/?action=sign-up">
-                <div class="form-group">
-                    <label for="pseudo" class="form-label">Pseudo :</label>
-                    <input type="text" class="form-control" id="pseudo" name="pseudo" placeholder="Entrez votre pseudo">
-                </div>
+            <form method="post" action="/?action=login">
                 <div class="form-group">
                     <label for="mail" class="form-label">Email :</label>
                     <input type="email" class="form-control" id="mail" name="mail" placeholder="email@exemple.com">
@@ -38,10 +32,9 @@
                     <input type="password" class="form-control" id="password" name="password">
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-outline-dark">Envoyer</button>
+                    <button type="submit" class="btn btn-outline-dark">Se connecter</button>
                 </div>
             </form>
         </div>
     </div>
-    
 {% endblock %}

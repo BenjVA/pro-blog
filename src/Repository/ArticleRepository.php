@@ -1,7 +1,10 @@
 <?php
 
-namespace App\Model;
 
+namespace App\Repository;
+
+use App\Model\Article;
+use App\Model\DatabaseConnection;
 
 class ArticleRepository
 {
@@ -47,7 +50,7 @@ class ArticleRepository
     public function getArticle($id): Article
     {
         $statement = $this->connection->getConnection()->prepare(
-            "SELECT article.id, user.mail, title, content, DATE_FORMAT(creationDate, '%d/%m/%Y à %Hh%imin%ss') AS creationDate FROM article 
+            "SELECT article.id, user.pseudo, title, content, DATE_FORMAT(creationDate, '%d/%m/%Y à %Hh%imin%ss') AS creationDate FROM article 
                         INNER JOIN user ON article.idUser = user.id WHERE article.id = ?"
         );
         $statement->execute([$id]);
@@ -59,7 +62,7 @@ class ArticleRepository
         $article->creationDate = $row['creationDate'];
         $article->content = $row['content'];
         $article->id = $row['id'];
-        $article->mail = $row['mail'];
+        $article->pseudo = $row['pseudo'];
 
         return $article;
     }

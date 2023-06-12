@@ -1,13 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Router;
 
-use App\Controllers\article;
 use App\Controllers\Homepage;
 use App\controllers\Articles;
 use App\Controllers\NotFoundController;
+use App\Session;
 use Twig\Environment;
 use \Twig\Loader\FilesystemLoader;
+use App\Controllers\User;
+use App\Controllers\Article;
+
+
 
 class Router
 {
@@ -16,7 +22,9 @@ class Router
     public function __construct()
     {
         $loader = new FilesystemLoader('src/template');
-        $this->twig = new Environment($loader);
+        $this->twig = new Environment($loader, [
+            'debug' => true,
+        ]);
     }
 
     public function getController(array $parameters): void
@@ -25,6 +33,9 @@ class Router
             match ($parameters['action']) {
                 'articles' => $this->getArticlesController(),
                 'article' => $this->getArticleController($_GET['id']),
+                'sign-up' => $this->getUserController(),
+                'login' => $this->getLoginController(),
+                'logout' => $this->getLogoutController(),
                 default => $this->getNotFoundController(),
             };
         }
@@ -33,13 +44,13 @@ class Router
         }
     }
 
-    public function getArticlesController(): void
+    private function getArticlesController(): void
     {
         $articlesController = new Articles($this->twig);
         $articlesController->showArticles();
     }
 
-    public function getArticleController($id): void
+    private function getArticleController($id): void
     {
         if ($id && $id > 0) {
             $articleController = new Article($this->twig);
@@ -50,9 +61,27 @@ class Router
         }
     }
 
-    public function getNotFoundController(): void
+    private function getNotFoundController(): void
     {
         $notFoundController = new NotFoundController($this->twig);
         $notFoundController->showError();
+    }
+
+    private function getUserController(): void
+    {
+            $userController = new User($this->twig);
+            $userController->signUpAction();
+    }
+
+    private function getLoginController(): void
+    {
+        $loginController = new User($this->twig);
+        $loginController->loginAction();
+    }
+
+    private function getLogoutController(): void
+    {
+        $logoutController = new User($this->twig);
+        $logoutController->logoutAction();
     }
 }

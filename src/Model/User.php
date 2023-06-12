@@ -7,7 +7,8 @@ namespace App\Model;
 class User
 {
     public int $id;
-    public string $login;
+    public string $pseudo;
+    public string $isAdmin;
+    public string $password;
     public string $mail;
-    public bool $isAdmin;
 }
