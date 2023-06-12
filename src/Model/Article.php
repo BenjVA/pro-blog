@@ -6,7 +6,7 @@ namespace App\Model;
 
 class Article
 {
-    public int $id;
+    public string $id;
     public string $content;
     public string $title;
     public string $short;

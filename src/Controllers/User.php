@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controllers;
 
 use App\Model\DatabaseConnection;
@@ -27,11 +29,9 @@ class User
 
             if ($signUp->getUserPseudo($pseudo) instanceof \App\Model\User) {
                 $samePseudoMessage = 'Le pseudo existe déjà';
-            }
-            elseif ($signUp->getUserMail($mail) instanceof \App\Model\User) {
+            } elseif ($signUp->getUserMail($mail) instanceof \App\Model\User) {
                 $sameMailMessage = 'L\'adresse mail existe déjà';
-            }
-            else {
+            } else {
                 $signUp->addUser($pseudo, $mail, $password);
                 $validMessage = 'Vous avez bien été enregistré !';
             }
@@ -55,8 +55,7 @@ class User
 
             if ($user) {
                 $loginSuccessful = 'Connexion réussie !';
-            }
-            else {
+            } else {
                 $loginFailed = 'Connexion échouée';
             }
         }

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Repository;
+declare(strict_types=1);
 
+namespace App\Repository;
 
 use App\Model\DatabaseConnection;
 use App\Model\User;
