@@ -34,7 +34,7 @@
                     <h2>Commentaires</h2>
                     {% for comment in comments %}
                         <p>{{ comment.content }}</p>
-                        <p>Par {{ comment.pseudo }} le {{ comment.dateComment }}</p>
+                        <p class="small">Par {{ comment.pseudo }} le {{ comment.dateComment }}</p>
                         <hr class="my-4">
                     {% endfor %}
                 </div>
