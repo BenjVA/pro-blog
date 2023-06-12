@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Router;
 
-use App\Controllers\Article;
-use App\Controllers\Comment;
 use App\Controllers\Homepage;
 use App\controllers\Articles;
 use App\Controllers\NotFoundController;
+use App\Session;
 use Twig\Environment;
 use \Twig\Loader\FilesystemLoader;
 use App\Controllers\User;
+use App\Controllers\Article;
 
 class Router
 {
@@ -20,7 +20,9 @@ class Router
     public function __construct()
     {
         $loader = new FilesystemLoader('src/template');
-        $this->twig = new Environment($loader);
+        $this->twig = new Environment($loader, [
+            'debug' => true,
+        ]);
     }
 
     public function getController(array $parameters): void
@@ -30,6 +32,8 @@ class Router
                 'articles' => $this->getArticlesController(),
                 'article' => $this->getArticleController($_GET['id']),
                 'sign-up' => $this->getUserController(),
+                'login' => $this->getLoginController(),
+                'logout' => $this->getLogoutController(),
                 default => $this->getNotFoundController(),
             };
         }
@@ -38,13 +42,13 @@ class Router
         }
     }
 
-    public function getArticlesController(): void
+    private function getArticlesController(): void
     {
         $articlesController = new Articles($this->twig);
         $articlesController->showArticles();
     }
 
-    public function getArticleController($id): void
+    private function getArticleController($id): void
     {
         if ($id && $id > 0) {
             $articleController = new Article($this->twig);
@@ -55,36 +59,27 @@ class Router
         }
     }
 
-    public function getNotFoundController(): void
+    private function getNotFoundController(): void
     {
         $notFoundController = new NotFoundController($this->twig);
         $notFoundController->showError();
     }
 
-    public function getUserController(): void
+    private function getUserController(): void
     {
-       /* if (isset($pseudo) && isset($mail) && filter_var($mail, FILTER_VALIDATE_EMAIL) && isset($password)) {
-            $addUser = new User($this->twig);
-            $addUser->signUp();
-        } */
-        $userController = new User($this->twig);
-        $userController->ShowSignUp();
+            $userController = new User($this->twig);
+            $userController->signUpAction();
     }
 
-    /* public function getCommentsController($idArticle): void
+    private function getLoginController(): void
     {
-        if ($idArticle && $idArticle > 0) {
-            $articleController = new Article($this->twig);
-            $articleController->showComments($idArticle);
-        }
-        else {
-            $this->getNotFoundController();
-        }
-    } */
+        $loginController = new User($this->twig);
+        $loginController->loginAction();
+    }
 
-    /*public function getCommentsController($id): void
+    private function getLogoutController(): void
     {
-        $commentController = new Comment($this->twig);
-        $commentController->showComments($id);
-    }*/
+        $logoutController = new User($this->twig);
+        $logoutController->logoutAction();
+    }
 }

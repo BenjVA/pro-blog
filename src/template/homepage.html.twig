@@ -15,9 +15,11 @@
         </header>
         <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7 text-center">
+                    {% if logoutSuccessful %}
+                        <p class="text-success">{{ logoutSuccessful }}</p>
+                    {% endif %}
                     {% for recentArticle in recentArticles %}
                         <h2>{{ recentArticle.title }}</h2>
-                        <small>le {{ recentArticle.creationDate }}</small>
                         <p>{{ recentArticle.short }}</p>
                         <a href="?action=articles" class="btn btn-outline py-4">Voir les différents articles</a>
                         <hr class="my-4">
@@ -54,6 +56,4 @@
                     </form>
             </div>
         </div>
-
-
 {% endblock %}

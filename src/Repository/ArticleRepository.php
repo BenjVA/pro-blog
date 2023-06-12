@@ -13,10 +13,10 @@ class ArticleRepository
     {
         $statement = $this->connection->getConnection()->query(
             "SELECT *
-                        FROM article
-                        ORDER BY creationDate
-                        DESC
-                        LIMIT 0, 3"
+             FROM article
+             ORDER BY creationDate
+             DESC
+             LIMIT 0, 3"
         );
         $recentArticles = [];
         while (($row = $statement->fetch())) {
@@ -36,9 +36,9 @@ class ArticleRepository
     {
         $statement = $this->connection->getConnection()->query(
             "SELECT *
-                        FROM article
-                        ORDER BY creationDate
-                        DESC"
+            FROM article
+            ORDER BY creationDate
+            DESC"
         );
         $articles = [];
         while (($row = $statement->fetch())) {
@@ -58,11 +58,11 @@ class ArticleRepository
     {
         $statement = $this->connection->getConnection()->prepare(
             "SELECT article.id, user.pseudo, title, content, 
-                    DATE_FORMAT(creationDate, '%d/%m/%Y à %Hh%imin%ss') AS creationDate, 
-                    DATE_FORMAT(updatedAt, '%d/%m/%Y à %Hh%imin%ss') AS updatedAt
-                    FROM article 
-                    INNER JOIN user ON article.idUser = user.id 
-                    WHERE article.id = ?"
+             DATE_FORMAT(creationDate, '%d/%m/%Y à %Hh%imin%ss') AS creationDate, 
+             DATE_FORMAT(updatedAt, '%d/%m/%Y à %Hh%imin%ss') AS updatedAt
+             FROM article 
+             INNER JOIN user ON article.idUser = user.id 
+             WHERE article.id = ?"
         );
         $statement->execute([$id]);
 
