@@ -34,8 +34,8 @@ class Article
     public function addComment(): void
     {
         if (count($_POST) > 0) {
-            $idArticle = $_POST['idArticle'];
-            $idUser = $_SESSION['idUser'];
+            $idArticle = $_GET['id'];
+            $idUser = $_SESSION['user']->id;
             $content = $_POST['commentary'];
 
             $comment = new CommentRepository();

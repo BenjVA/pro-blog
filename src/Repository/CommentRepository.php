@@ -6,6 +6,7 @@ namespace App\Repository;
 
 use App\Model\Comment;
 use App\Model\DatabaseConnection;
+use App\Session;
 
 class CommentRepository
 {
@@ -43,8 +44,8 @@ class CommentRepository
     public function addComment(string $idArticle, string $idUser, string $content): bool
     {
         $statement = $this->connection->getConnection()->prepare(
-            "INSERT INTO comment(idArticle, idUser, content, dateComment) 
-                    VALUES(:idarticle, :idUser, :content, NOW())"
+            "INSERT INTO problog.comment(idArticle, idUser, content, dateComment, published)
+                    VALUES(:idArticle, :idUser, :content, NOW(), 0)"
         );
         $affectedLines = $statement->execute([
             'idArticle' => $idArticle,

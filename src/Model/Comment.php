@@ -10,6 +10,7 @@ class Comment
     public string $content;
     public string $dateComment;
     public string $idArticle;
+    public int $published;
     public string $idUser;
     public string $pseudo;
 }
