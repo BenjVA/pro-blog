@@ -30,9 +30,11 @@
                             </a>
                         </li>
                     </ul>
-                    <div class="small text-center text-muted fst-italic">
-                        <a href="">Accéder au panneau d'administration</a>
-                    </div>
+                    {% if session.user.isAdmin %}
+                        <div class="small text-center text-muted fst-italic">
+                            <a href="/?action=showAdminPanel">Accéder au panneau d'administration</a>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

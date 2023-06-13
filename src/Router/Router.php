@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Router;
 
+use App\Controllers\Comment;
 use App\Controllers\Homepage;
 use App\controllers\Articles;
 use App\Controllers\NotFoundController;
@@ -35,6 +36,8 @@ class Router
                 'login' => $this->getLoginController(),
                 'logout' => $this->getLogoutController(),
                 'addComment' => $this->getAddCommentController(),
+                'showAdminPanel' => $this->getAdminPanelController(),
+                'showWaitingCommentsList' => $this->getNotPublishedCommentsController(),
                 default => $this->getNotFoundController(),
             };
         }
@@ -86,7 +89,19 @@ class Router
 
     private function getAddCommentController(): void
     {
-        $commentController = new Article($this->twig);
+        $commentController = new Comment($this->twig);
         $commentController->addComment();
+    }
+
+    private function getNotPublishedCommentsController(): void
+    {
+        $notPublishedCommentsController = new Comment($this->twig);
+        $notPublishedCommentsController->showNotPublishedComments();
+    }
+
+    private function getAdminPanelController(): void
+    {
+        $adminPanelController = new User($this->twig);
+        $adminPanelController->showAdminPanel();
     }
 }

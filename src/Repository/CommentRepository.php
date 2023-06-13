@@ -6,20 +6,19 @@ namespace App\Repository;
 
 use App\Model\Comment;
 use App\Model\DatabaseConnection;
-use App\Session;
 
 class CommentRepository
 {
     public DatabaseConnection $connection;
 
-    public function getComments(string $idArticle): array
+    public function getPublishedComments(string $idArticle): array
     {
         $statement = $this->connection->getConnection()->prepare(
-            "SELECT comment.id, pseudo, dateComment, comment.content, idArticle
+            "SELECT comment.id, pseudo, dateComment, comment.content, idArticle, published
                         FROM comment
                         INNER JOIN article ON comment.idArticle = article.id
                         INNER JOIN user ON comment.idUser = user.id
-                        WHERE article.id = :idArticle
+                        WHERE article.id = :idArticle AND published = 1
                         ORDER BY dateComment
                         DESC"
         );
@@ -35,6 +34,7 @@ class CommentRepository
             $comment->dateComment = $row['dateComment'];
             $comment->content = $row['content'];
             $comment->idArticle = $row['idArticle'];
+            $comment->published = $row['published'];
 
             $comments[] = $comment;
         }
@@ -54,5 +54,30 @@ class CommentRepository
         ]);
 
         return ($affectedLines > 0);
+    }
+
+    public function getWaitingPublicationComments(): array
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            "SELECT * FROM comment 
+                    INNER JOIN user ON comment.idUser = user.id
+                    WHERE published = 1"
+        );
+
+        $notPublishedComments = [];
+
+        while (($row = $statement->fetch())) {
+            $notPublishedComment = new Comment();
+            $notPublishedComment->id = $row['id'];
+            $notPublishedComment->pseudo = $row['pseudo'];
+            $notPublishedComment->dateComment = $row['dateComment'];
+            $notPublishedComment->content = $row['content'];
+            $notPublishedComment->idArticle = $row['idArticle'];
+            $notPublishedComment->published = $row['published'];
+
+            $notPublishedComments[] = $notPublishedComment;
+        }
+
+        return $notPublishedComments;
     }
 }
