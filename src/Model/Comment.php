@@ -8,9 +8,8 @@ class Comment
 {
     public string $id;
     public string $content;
-    public string $dateComment;
+    public string $createdAt;
     public string $idArticle;
     public string $published;
-    public string $idUser;
     public string $pseudo;
 }

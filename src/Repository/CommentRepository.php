@@ -14,12 +14,12 @@ class CommentRepository
     public function getPublishedComments(string $idArticle): array
     {
         $statement = $this->connection->getConnection()->prepare(
-            "SELECT comment.id, pseudo, dateComment, comment.content, idArticle, published
+            "SELECT comment.id, pseudo, comment.createdAt, comment.content, idArticle, published
                         FROM comment
                         INNER JOIN article ON comment.idArticle = article.id
                         INNER JOIN user ON comment.idUser = user.id
                         WHERE article.id = :idArticle AND published = 1
-                        ORDER BY dateComment
+                        ORDER BY createdAt
                         DESC"
         );
         $statement->execute([
@@ -31,7 +31,7 @@ class CommentRepository
             $comment = new Comment();
             $comment->id = $row['id'];
             $comment->pseudo = $row['pseudo'];
-            $comment->dateComment = $row['dateComment'];
+            $comment->createdAt = $row['createdAt'];
             $comment->content = $row['content'];
             $comment->idArticle = $row['idArticle'];
             $comment->published = $row['published'];
@@ -44,7 +44,7 @@ class CommentRepository
     public function addComment(string $idArticle, string $idUser, string $content): bool
     {
         $statement = $this->connection->getConnection()->prepare(
-            "INSERT INTO problog.comment(idArticle, idUser, content, dateComment, published)
+            "INSERT INTO problog.comment(idArticle, idUser, content, createdAt, published)
                     VALUES(:idArticle, :idUser, :content, NOW(), 0)"
         );
         $affectedLines = $statement->execute([
@@ -59,11 +59,11 @@ class CommentRepository
     public function getWaitingPublicationComments(): array
     {
         $statement = $this->connection->getConnection()->query(
-            "SELECT comment.id, pseudo, dateComment, comment.content, idArticle, published
+            "SELECT comment.id, pseudo, createdAt, comment.content, idArticle, published
                     FROM comment
                     INNER JOIN user ON comment.idUser = user.id
                     WHERE published = 0
-                    ORDER BY dateComment DESC"
+                    ORDER BY createdAt DESC"
         );
 
         $notPublishedComments = [];
@@ -72,7 +72,7 @@ class CommentRepository
             $notPublishedComment = new Comment();
             $notPublishedComment->id = $row['id'];
             $notPublishedComment->pseudo = $row['pseudo'];
-            $notPublishedComment->dateComment = $row['dateComment'];
+            $notPublishedComment->createdAt = $row['createdAt'];
             $notPublishedComment->content = $row['content'];
             $notPublishedComment->idArticle = $row['idArticle'];
             $notPublishedComment->published = $row['published'];

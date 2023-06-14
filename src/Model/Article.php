@@ -11,7 +11,7 @@ class Article
     public string $title;
     public string $short;
     public string $status;
-    public string $creationDate;
+    public string $createdAt;
     public string $pseudo;
     public string $updatedAt;
 }
