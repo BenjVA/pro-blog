@@ -30,7 +30,7 @@
                             </a>
                         </li>
                     </ul>
-                    {% if session.user.isAdmin %}
+                    {% if session.user.isAdmin == 1 %}
                         <div class="small text-center text-muted fst-italic">
                             <a href="/?action=showAdminPanel">Accéder au panneau d'administration</a>
                         </div>

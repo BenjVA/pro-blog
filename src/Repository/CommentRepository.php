@@ -58,10 +58,12 @@ class CommentRepository
 
     public function getWaitingPublicationComments(): array
     {
-        $statement = $this->connection->getConnection()->prepare(
-            "SELECT * FROM comment 
+        $statement = $this->connection->getConnection()->query(
+            "SELECT comment.id, pseudo, dateComment, comment.content, idArticle, published
+                    FROM comment
                     INNER JOIN user ON comment.idUser = user.id
-                    WHERE published = 1"
+                    WHERE published = 0
+                    ORDER BY dateComment DESC"
         );
 
         $notPublishedComments = [];
@@ -79,5 +81,18 @@ class CommentRepository
         }
 
         return $notPublishedComments;
+    }
+
+    public function publishComment(string $id): bool
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            "UPDATE comment SET published = 1 WHERE id = :id"
+        );
+
+        $affectedLine = $statement->execute([
+            'id' => $id
+        ]);
+
+        return ($affectedLine > 0);
     }
 }

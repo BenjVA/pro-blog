@@ -42,6 +42,27 @@ class Comment
         $notPublishedComment = new CommentRepository();
         $notPublishedComment->connection = new DatabaseConnection();
         $notPublishedComments = $notPublishedComment->getWaitingPublicationComments();
+
         $this->twig->display('waitingCommentsList.html.twig', ['notPublishedComments' => $notPublishedComments]);
+    }
+
+    public function publishComment(): void
+    {
+        $id = $_GET['id'];
+
+        $publishComment = new CommentRepository();
+        $publishComment->connection = new DatabaseConnection();
+        $publishComments = $publishComment->publishComment($id);
+
+        if ($publishComments) {
+            $publishedComment = 'Commentaire validé !';
+        } else {
+            $errorPublishComment = 'Commentaire non validé';
+        }
+
+        $this->twig->display('waitingCommentsList.html.twig', [
+            'publishedComment' => $publishedComment ?? null,
+            'errorPublishComment' => $errorPublishComment ?? null
+        ]);
     }
 }

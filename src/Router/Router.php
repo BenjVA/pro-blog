@@ -38,6 +38,7 @@ class Router
                 'addComment' => $this->getAddCommentController(),
                 'showAdminPanel' => $this->getAdminPanelController(),
                 'showWaitingCommentsList' => $this->getNotPublishedCommentsController(),
+                'publishComment' => $this->getPublishCommentController(),
                 default => $this->getNotFoundController(),
             };
         }
@@ -103,5 +104,11 @@ class Router
     {
         $adminPanelController = new User($this->twig);
         $adminPanelController->showAdminPanel();
+    }
+
+    private function getPublishCommentController(): void
+    {
+        $publishCommentController = new Comment($this->twig);
+        $publishCommentController->publishComment();
     }
 }
