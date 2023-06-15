@@ -6,6 +6,10 @@ namespace App\Model;
 
 class Comment
 {
-    public int $id;
+    public string $id;
     public string $content;
+    public string $createdAt;
+    public string $idArticle;
+    public string $published;
+    public string $pseudo;
 }

@@ -6,11 +6,12 @@ namespace App\Model;
 
 class Article
 {
-    public int $id;
+    public string $id;
     public string $content;
     public string $title;
     public string $short;
     public string $status;
-    public string $creationDate;
+    public string $createdAt;
     public string $pseudo;
+    public string $updatedAt;
 }

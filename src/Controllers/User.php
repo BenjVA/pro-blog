@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controllers;
 
 use App\Model\DatabaseConnection;
@@ -27,11 +29,9 @@ class User
 
             if ($signUp->getUserPseudo($pseudo) instanceof \App\Model\User) {
                 $samePseudoMessage = 'Le pseudo existe déjà';
-            }
-            elseif ($signUp->getUserMail($mail) instanceof \App\Model\User) {
+            } elseif ($signUp->getUserMail($mail) instanceof \App\Model\User) {
                 $sameMailMessage = 'L\'adresse mail existe déjà';
-            }
-            else {
+            } else {
                 $signUp->addUser($pseudo, $mail, $password);
                 $validMessage = 'Vous avez bien été enregistré !';
             }
@@ -54,16 +54,15 @@ class User
             $user = $login->connectUser($mail, $password);
 
             if ($user) {
-                $loginSuccessful = 'Connexion réussie !';
-            }
-            else {
+                $loginSuccessful = 'Connexion réussie';
+            } else {
                 $loginFailed = 'Connexion échouée';
             }
         }
         $this->twig->display('login.html.twig', [
-            'loginSuccessful' => $loginSuccessful ?? null,
-            'user' => $user ?? null,
-            'loginFailed' => $loginFailed ?? null
+        'loginSuccessful' => $loginSuccessful ?? null,
+        'user' => $user ?? null,
+        'loginFailed' => $loginFailed ?? null
         ]);
     }
 
@@ -74,5 +73,10 @@ class User
         $this->twig->display('homepage.html.twig', [
             'logoutSuccessful' => 'Vous êtes bien déconnecté, à bientôt !'
         ]);
+    }
+
+    public function showAdminPanel(): void
+    {
+        $this->twig->display('adminLayout.html.twig');
     }
 }

@@ -1,33 +1,76 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-
-    <body>
-        <header class="masthead" style="background-image: url('/src/assets/Public/img/post-bg.jpg')">
-            <div class="container position-relative px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-7">
-                        <div class="post-heading">
+    <header class="masthead" style="background-image: url('/src/assets/Public/img/post-bg.jpg')">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="post-heading">
+                        {% if not waitingValidation %}
                             <h1>{{ article.title }}</h1>
                             <span class="meta">
-                                    Posté par
-                                    {{ article.pseudo }}
-                                    le {{ article.creationDate }}
+                                Posté par {{ article.pseudo }} le {{ article.creationDate }}
+                                <br>édité le {{ article.updatedAt }}
                             </span>
+                            {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <article class="mb-4">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <p>{{ article.content }}</p>
+                </div>
+            </div>
+        </div>
+    </article>
+    {% if waitingValidation %}
+        <p class="text-success text-center">{{ waitingValidation }}</p>
+    {% endif %}
+    <hr class="my-4">
+    <div class="container">
+        <div class="row gy-4 py-4 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7 text-center">
+                <h2>Commentaires</h2>
+                {% for comment in comments %}
+                        <p>{{ comment.content }}</p>
+                        <p class="text-muted fst-italic">Par {{ comment.pseudo }} le {{ comment.dateComment }}</p>
+                        <hr class="my-4">
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            <h2 class="text-center">Poster un commentaire</h2>
+                {% if session.user.pseudo %}
+                    <form method="post" action="/?action=addComment&id={{ article.id }}">
+                        <div class="form-group">
+                            <label for="commentary" class="form-label">Message :</label>
+                            <textarea
+                                    class="form-control"
+                                    id="commentary"
+                                    name="commentary"
+                                    rows="3"
+                                    placeholder="Votre commentaire ici" required></textarea>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-        <article class="mb-4">
-            <div class="container px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-7">
-                        <p>{{ article.content }}</p>
-                    </div>
-                </div>
-            </div>
-        </article>
-    </body>
-
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-outline-dark">Envoyer</button>
+                        </div>
+                    </form>
+                {% endif %}
+                {% if not session.user.pseudo %}
+                    <a href="?action=login"
+                       class="text-center">Veuillez vous connecter pour poster un commentaire.
+                    </a>
+                    <br>
+                    <a href="?action=signUp"
+                       class="text-center">Inscrivez-vous si vous n'avez pas encore de compte.
+                    </a>
+                {% endif %}
+        </div>
+    </div>
 {% endblock %}

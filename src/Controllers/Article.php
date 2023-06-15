@@ -6,6 +6,7 @@ namespace App\Controllers;
 
 use App\Model\DatabaseConnection;
 use App\Repository\ArticleRepository;
+use App\Repository\CommentRepository;
 use Twig\Environment;
 use Twig\Extension\DebugExtension;
 
@@ -17,12 +18,16 @@ class Article
         $this->twig->addGlobal('session', $_SESSION);
     }
 
-    public function showArticle($id): void
+    public function showArticle(string $id): void
     {
         $articleRepository = new ArticleRepository();
+        $commentRepository = new CommentRepository();
         $articleRepository->connection = new DatabaseConnection();
-        $article = $articleRepository->getArticle($id);
+        $commentRepository->connection = new DatabaseConnection();
 
-        $this->twig->display('article.html.twig', ['article' => $article]);
+        $article = $articleRepository->getArticle($id);
+        $comments = $commentRepository->getPublishedComments($id);
+
+        $this->twig->display('article.html.twig', ['article' => $article, 'comments' => $comments]);
     }
 }

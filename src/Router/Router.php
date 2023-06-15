@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Router;
 
+use App\Controllers\Comment;
 use App\Controllers\Homepage;
 use App\controllers\Articles;
 use App\Controllers\NotFoundController;
@@ -12,8 +13,6 @@ use Twig\Environment;
 use \Twig\Loader\FilesystemLoader;
 use App\Controllers\User;
 use App\Controllers\Article;
-
-
 
 class Router
 {
@@ -36,6 +35,11 @@ class Router
                 'sign-up' => $this->getUserController(),
                 'login' => $this->getLoginController(),
                 'logout' => $this->getLogoutController(),
+                'addComment' => $this->getAddCommentController(),
+                'showAdminPanel' => $this->getAdminPanelController(),
+                'showWaitingCommentsList' => $this->getNotPublishedCommentsController(),
+                'publishComment' => $this->getPublishCommentController(),
+                'deleteComment' => $this->getDeleteCommentController(),
                 default => $this->getNotFoundController(),
             };
         }
@@ -50,7 +54,7 @@ class Router
         $articlesController->showArticles();
     }
 
-    private function getArticleController($id): void
+    private function getArticleController(string $id): void
     {
         if ($id && $id > 0) {
             $articleController = new Article($this->twig);
@@ -83,5 +87,35 @@ class Router
     {
         $logoutController = new User($this->twig);
         $logoutController->logoutAction();
+    }
+
+    private function getAddCommentController(): void
+    {
+        $commentController = new Comment($this->twig);
+        $commentController->addComment();
+    }
+
+    private function getNotPublishedCommentsController(): void
+    {
+        $notPublishedCommentsController = new Comment($this->twig);
+        $notPublishedCommentsController->showNotPublishedComments();
+    }
+
+    private function getAdminPanelController(): void
+    {
+        $adminPanelController = new User($this->twig);
+        $adminPanelController->showAdminPanel();
+    }
+
+    private function getPublishCommentController(): void
+    {
+        $publishCommentController = new Comment($this->twig);
+        $publishCommentController->publishComment();
+    }
+
+    private function getDeleteCommentController(): void
+    {
+        $deleteCommentController = new Comment($this->twig);
+        $deleteCommentController->deleteComment();
     }
 }
