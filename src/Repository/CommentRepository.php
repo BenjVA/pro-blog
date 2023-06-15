@@ -95,4 +95,17 @@ class CommentRepository
 
         return ($affectedLine > 0);
     }
+
+    public function deleteComment(string $id): bool
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            "DELETE FROM comment WHERE id = :id"
+        );
+
+        $affectedLine = $statement->execute([
+            'id' => $id
+        ]);
+
+        return ($affectedLine > 0);
+    }
 }

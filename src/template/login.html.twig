@@ -18,22 +18,24 @@
             {% if loginSuccessful %}
                 <h2 class="text-success">Bienvenue {{ user.pseudo }} !</h2>
             {% endif %}
-            {% if loginFailed %}
-                <p class="text-danger">{{ loginFailed }}</p>
+            {% if not session.user.pseudo %}
+                {% if loginFailed %}
+                    <p class="text-danger">{{ loginFailed }}</p>
+                {% endif %}
+                <form method="post" action="/?action=login">
+                    <div class="form-group">
+                        <label for="mail" class="form-label">Email :</label>
+                        <input type="email" class="form-control" id="mail" name="mail" placeholder="email@exemple.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="form-label">Mot de passe :</label>
+                        <input type="password" class="form-control" id="password" name="password">
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-outline-dark">Se connecter</button>
+                    </div>
+                </form>
             {% endif %}
-            <form method="post" action="/?action=login">
-                <div class="form-group">
-                    <label for="mail" class="form-label">Email :</label>
-                    <input type="email" class="form-control" id="mail" name="mail" placeholder="email@exemple.com">
-                </div>
-                <div class="form-group">
-                    <label for="password" class="form-label">Mot de passe :</label>
-                    <input type="password" class="form-control" id="password" name="password">
-                </div>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-outline-dark">Se connecter</button>
-                </div>
-            </form>
         </div>
     </div>
 {% endblock %}

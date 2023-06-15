@@ -65,4 +65,24 @@ class Comment
             'errorPublishComment' => $errorPublishComment ?? null
         ]);
     }
+
+    public function deleteComment(): void
+    {
+        $id = $_GET['id'];
+
+        $deleteComment = new CommentRepository();
+        $deleteComment->connection = new DatabaseConnection();
+        $deleteComments = $deleteComment->deleteComment($id);
+
+        if ($deleteComments) {
+            $deletedComment = 'Commentaire supprimé !';
+        } else {
+            $errorDeleteComment = 'Commentaire non validé';
+        }
+
+        $this->twig->display('waitingCommentsList.html.twig', [
+            'deletedComment' => $deletedComment ?? null,
+            'errorPublishComment' => $errorDeleteComment ?? null
+        ]);
+    }
 }

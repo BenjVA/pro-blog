@@ -6,7 +6,7 @@
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <div class="page-heading">
-                        <h1>Validation des commentaires</h1>
+                        <h1>Validation ou suppression des commentaires</h1>
                         <span class="subheading"></span>
                     </div>
                 </div>
@@ -14,24 +14,41 @@
         </div>
     </header>
     <div class="container">
-        <div class="row gy-4 py-4 justify-content-center">
-            <div class="col-md-10 col-lg-8 col-xl-7 text-center">
-                {% if publishedComment %}
-                    <p class="text-success">{{ publishedComment }}</p>
-                {% endif %}
-                {% if errorPublishComment %}
-                    <p class="text-danger">{{ errorPublishComment }}</p>
-                {% endif %}
-                {% for notPublishedComment in notPublishedComments %}
-                    <div class="text-center">
-                        <h1>{{ notPublishedComment.pseudo }}</h1>
-                        <small class="text-muted fst-italic">Posté le {{ notPublishedComment.dateComment }}</small>
-                        <p>{{ notPublishedComment.content }}</p>
-                        <a href="/?action=publishComment&id={{ notPublishedComment.id }}" class="btn btn-outline py-4">Valider le commentaire</a>
-                        <hr class="my-4">
+        <div class="row align-items-start justify-content-center gy-4 py-4">
+            {% if publishedComment %}
+                <p class="text-center text-success">{{ publishedComment }}</p>
+                <a href="/?action=showWaitingCommentsList">Voir les commentaires en attente de validation</a>
+            {% endif %}
+            {% if deletedComment %}
+                <p class="text-center text-success">{{ deletedComment }}</p>
+                <a href="/?action=showWaitingCommentsList">Voir les commentaires en attente de validation</a>
+            {% endif %}
+            {% if errorDeleteComment %}
+                <p class="text-center text-danger">{{ errorDeleteComment }}</p>
+                <a href="/?action=showWaitingCommentsList">Voir les commentaires en attente de validation</a>
+            {% endif %}
+            {% if errorPublishComment %}
+                <p class="text-center text-danger">{{ errorPublishComment }}</p>
+                <a href="/?action=showWaitingCommentsList">Voir les commentaires en attente de validation</a>
+            {% endif %}
+            {% if not notPublishedComment %}
+                    <p class="text-center text-bg-info">Aucun commentaire en attente !</p>
+                    <a href="/index.php">Revenir à l'accueil</a>
+            {% endif %}
+            {% for notPublishedComment in notPublishedComments %}
+            <div class="col-md text-center">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ notPublishedComment.pseudo }}</h5>
+                        <p class="card-text">{{ notPublishedComment.content }}</p>
+                        <a href="/?action=publishComment&id={{ notPublishedComment.id }}"
+                           class="btn"><i class="fa-solid fa-check" style="color: #00ff40;"></i></a>
+                        <a href="/?action=deleteComment&id={{ notPublishedComment.id }}"
+                           class="btn"><i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
                     </div>
-                {% endfor %}
+                </div>
             </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}
