@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Model\Article;
-use App\Model\Comment;
 use App\Model\DatabaseConnection;
 
 class ArticleRepository
@@ -72,7 +71,7 @@ class ArticleRepository
     public function getSingleArticle(string $id): Article
     {
         $statement = $this->connection->getConnection()->prepare(
-            "SELECT article.id, user.pseudo, title, content, published,
+            "SELECT article.id, user.pseudo, title, content, published, short,
              DATE_FORMAT(createdAt, '%d-%m-%Y à %Hh%imin%ss') AS createdAt,
              DATE_FORMAT(updatedAt, '%d-%m-%Y à %Hh%imin%ss') AS updatedAt
              FROM article
@@ -91,6 +90,7 @@ class ArticleRepository
         $article->content = $row['content'];
         $article->id = $row['id'];
         $article->pseudo = $row['pseudo'];
+        $article->short = $row['short'];
 
         return $article;
     }
@@ -160,6 +160,23 @@ class ArticleRepository
 
         $affectedLine = $statement->execute([
             'id' => $id
+        ]);
+
+        return ($affectedLine > 0);
+    }
+
+    public function editArticle(string $id, string $title, string $short, string $content): bool
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            "UPDATE article SET title = :title, short = :short, content = :content, updatedAt = NOW()  
+                    WHERE id = :id"
+        );
+
+        $affectedLine = $statement->execute([
+            'id' => $id,
+            'title' => $title,
+            'short' => $short,
+            'content' => $content
         ]);
 
         return ($affectedLine > 0);
