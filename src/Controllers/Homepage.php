@@ -21,7 +21,7 @@ class Homepage
     {
         $articleRepository = new ArticleRepository();
         $articleRepository->connection = new DatabaseConnection();
-        $recentArticles = $articleRepository->getRecentArticles();
+        $recentArticles = $articleRepository->getRecentPublishedArticles();
 
         $this->twig->display('homepage.html.twig', ['recentArticles' => $recentArticles,
             'user' => $user ?? null

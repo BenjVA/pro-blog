@@ -28,13 +28,13 @@ class Comment
             $comment->connection = new DatabaseConnection();
             $addComment = $comment->addComment($idArticle, $idUser, $content);
 
-            if ($addComment) {
-                $this->twig->display('article.html.twig', [
-                    'waitingValidation' => 'Votre commentaire est en attente de validation !'
-                ]);
+            if (!$addComment) {
+                $this->twig->display('notFound.html.twig');
             }
         }
-        $this->twig->display('notFound.html.twig');
+        $this->twig->display('article.html.twig', [
+            'waitingValidationComment' => 'Votre commentaire est en attente de validation !'
+        ]);
     }
 
     public function showNotPublishedComments(): void

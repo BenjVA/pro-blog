@@ -17,11 +17,11 @@ class Articles
         $this->twig->addGlobal('session', $_SESSION);
     }
 
-    public function showArticles(): void
+    public function showPublishedArticles(): void
     {
         $articleRepository = new ArticleRepository();
         $articleRepository->connection = new DatabaseConnection();
-        $articles = $articleRepository->getArticles();
+        $articles = $articleRepository->getPublishedArticles();
 
         $this->twig->display('articles.html.twig', ['articles' => $articles]);
     }

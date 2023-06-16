@@ -1,0 +1,57 @@
+{% extends 'adminLayout.html.twig' %}
+
+{% block content %}
+    <header class="masthead" style="background-image: url('/src/assets/Public/img/about-bg.jpg')">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="page-heading">
+                        <h1>Validation ou suppression des articles</h1>
+                        <span class="subheading"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="row align-items-start justify-content-center gy-4 py-4">
+            {% if publishedArticle %}
+                <p class="text-center text-success">{{ publishedArticle }}</p>
+                <a href="/?action=showWaitingArticlesList">Voir les articles en attente de validation</a>
+            {% endif %}
+            {% if deletedArticle %}
+                <p class="text-center text-success">{{ deletedArticle }}</p>
+                <a href="/?action=showWaitingArticlesList">Voir les articles en attente de validation</a>
+            {% endif %}
+            {% if errorDeleteArticle %}
+                <p class="text-center text-danger">{{ errorDeleteArticle }}</p>
+                <a href="/?action=showWaitingArticlesList">Voir les articles en attente de validation</a>
+            {% endif %}
+            {% if errorPublishArticle %}
+                <p class="text-center text-danger">{{ errorPublishArticle }}</p>
+                <a href="/?action=showWaitingArticlesList">Voir les articles en attente de validation</a>
+            {% endif %}
+            {% if notPublishedArticles is empty %}
+                <p class="text-center text-bg-info">Aucun article en attente !</p>
+            {% endif %}
+            {% for notPublishedArticle in notPublishedArticles %}
+                <div class="col-md text-center">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ notPublishedArticle.title }}</h5>
+                            <h6 class="card-subtitle mb-2 text-body-secondary">{{ notPublishedArticle.pseudo }}</h6>
+                            <p class="card-text text-muted">{{ notPublishedArticle.short }}</p>
+                            <p class="card-text">{{ notPublishedArticle.content }}</p>
+                            <a href="/?action=publishArticle&id={{ notPublishedArticle.id }}"
+                               class="btn"><i class="fa-solid fa-check" style="color: #00ff40;"></i></a>
+                            <a href="/?action=deleteArticle&id={{ notPublishedArticle.id }}"
+                               class="btn"><i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            <a href="/index.php">Revenir à l'accueil</a>
+            <a href="/?action=showAdminPanel">Revenir au panneau d'administration</a>
+        </div>
+    </div>
+{% endblock %}

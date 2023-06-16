@@ -10,8 +10,8 @@ class Article
     public string $content;
     public string $title;
     public string $short;
-    public string $status;
     public string $createdAt;
     public string $pseudo;
     public string $updatedAt;
+    public string $published;
 }

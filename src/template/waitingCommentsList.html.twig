@@ -31,24 +31,25 @@
                 <p class="text-center text-danger">{{ errorPublishComment }}</p>
                 <a href="/?action=showWaitingCommentsList">Voir les commentaires en attente de validation</a>
             {% endif %}
-            {% if not notPublishedComment %}
+            {% if notPublishedComments is empty %}
                     <p class="text-center text-bg-info">Aucun commentaire en attente !</p>
-                    <a href="/index.php">Revenir à l'accueil</a>
             {% endif %}
             {% for notPublishedComment in notPublishedComments %}
-            <div class="col-md text-center">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ notPublishedComment.pseudo }}</h5>
-                        <p class="card-text">{{ notPublishedComment.content }}</p>
-                        <a href="/?action=publishComment&id={{ notPublishedComment.id }}"
-                           class="btn"><i class="fa-solid fa-check" style="color: #00ff40;"></i></a>
-                        <a href="/?action=deleteComment&id={{ notPublishedComment.id }}"
-                           class="btn"><i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
+                <div class="col-md text-center">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ notPublishedComment.pseudo }}</h5>
+                            <p class="card-text">{{ notPublishedComment.content }}</p>
+                            <a href="/?action=publishComment&id={{ notPublishedComment.id }}"
+                               class="btn"><i class="fa-solid fa-check" style="color: #00ff40;"></i></a>
+                            <a href="/?action=deleteComment&id={{ notPublishedComment.id }}"
+                               class="btn"><i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
+                        </div>
                     </div>
                 </div>
-            </div>
             {% endfor %}
+            <a href="/index.php">Revenir à l'accueil</a>
+            <a href="/?action=showAdminPanel">Revenir au panneau d'administration</a>
         </div>
     </div>
 {% endblock %}
