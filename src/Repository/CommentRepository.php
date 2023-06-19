@@ -14,11 +14,11 @@ class CommentRepository
     public function getPublishedComments(string $idArticle): array
     {
         $statement = $this->connection->getConnection()->prepare(
-            "SELECT comment.id, pseudo, comment.createdAt, comment.content, idArticle, published
+            "SELECT comment.id, pseudo, comment.createdAt, comment.content, idArticle, comment.published
                         FROM comment
                         INNER JOIN article ON comment.idArticle = article.id
                         INNER JOIN user ON comment.idUser = user.id
-                        WHERE article.id = :idArticle AND published = 1
+                        WHERE article.id = :idArticle AND comment.published = 1
                         ORDER BY createdAt
                         DESC"
         );
@@ -44,7 +44,7 @@ class CommentRepository
     public function addComment(string $idArticle, string $idUser, string $content): bool
     {
         $statement = $this->connection->getConnection()->prepare(
-            "INSERT INTO problog.comment(idArticle, idUser, content, createdAt, published)
+            "INSERT INTO problog.comment(idArticle, idUser, content, createdAt, comment.published)
                     VALUES(:idArticle, :idUser, :content, NOW(), 0)"
         );
         $affectedLines = $statement->execute([
@@ -59,7 +59,7 @@ class CommentRepository
     public function getWaitingPublicationComments(): array
     {
         $statement = $this->connection->getConnection()->query(
-            "SELECT comment.id, pseudo, createdAt, comment.content, idArticle, published
+            "SELECT comment.id, pseudo, createdAt, comment.content, idArticle, comment.published
                     FROM comment
                     INNER JOIN user ON comment.idUser = user.id
                     WHERE published = 0
@@ -86,7 +86,7 @@ class CommentRepository
     public function publishComment(string $id): bool
     {
         $statement = $this->connection->getConnection()->prepare(
-            "UPDATE comment SET published = 1 WHERE id = :id"
+            "UPDATE comment SET comment.published = 1 WHERE id = :id"
         );
 
         $affectedLine = $statement->execute([

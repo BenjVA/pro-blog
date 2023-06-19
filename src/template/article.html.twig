@@ -12,7 +12,7 @@
                                 Posté par {{ article.pseudo }} le {{ article.creationDate }}
                                 <br>édité le {{ article.updatedAt }}
                             </span>
-                            {% endif %}
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -27,8 +27,8 @@
             </div>
         </div>
     </article>
-    {% if waitingValidation %}
-        <p class="text-success text-center">{{ waitingValidation }}</p>
+    {% if waitingValidationComment %}
+        <p class="text-success text-center">{{ waitingValidationComment }}</p>
     {% endif %}
     <hr class="my-4">
     <div class="container">
@@ -37,7 +37,7 @@
                 <h2>Commentaires</h2>
                 {% for comment in comments %}
                         <p>{{ comment.content }}</p>
-                        <p class="text-muted fst-italic">Par {{ comment.pseudo }} le {{ comment.dateComment }}</p>
+                        <p class="text-muted fst-italic">Par {{ comment.pseudo }} le {{ comment.createdAt }}</p>
                         <hr class="my-4">
                 {% endfor %}
             </div>
@@ -64,12 +64,10 @@
                 {% endif %}
                 {% if not session.user.pseudo %}
                     <a href="?action=login"
-                       class="text-center">Veuillez vous connecter pour poster un commentaire.
-                    </a>
+                       class="text-center">Veuillez vous connecter pour poster un commentaire.</a>
                     <br>
                     <a href="?action=signUp"
-                       class="text-center">Inscrivez-vous si vous n'avez pas encore de compte.
-                    </a>
+                       class="text-center">Inscrivez-vous si vous n'avez pas encore de compte.</a>
                 {% endif %}
         </div>
     </div>

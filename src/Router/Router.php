@@ -40,6 +40,11 @@ class Router
                 'showWaitingCommentsList' => $this->getNotPublishedCommentsController(),
                 'publishComment' => $this->getPublishCommentController(),
                 'deleteComment' => $this->getDeleteCommentController(),
+                'addArticle' => $this->getaddArticleController(),
+                'showAddArticlePage' => $this->getShowAddArticlePage(),
+                'showWaitingArticlesList' => $this->getNotPublishedArticleController(),
+                'deleteArticle' => $this->getDeleteArticleController(),
+                'publishArticle' => $this->getPublishArticleController(),
                 default => $this->getNotFoundController(),
             };
         }
@@ -51,14 +56,14 @@ class Router
     private function getArticlesController(): void
     {
         $articlesController = new Articles($this->twig);
-        $articlesController->showArticles();
+        $articlesController->showPublishedArticles();
     }
 
     private function getArticleController(string $id): void
     {
         if ($id && $id > 0) {
             $articleController = new Article($this->twig);
-            $articleController->showArticle($id);
+            $articleController->showPublishedArticle($id);
         }
         else {
             $this->getNotFoundController();
@@ -117,5 +122,35 @@ class Router
     {
         $deleteCommentController = new Comment($this->twig);
         $deleteCommentController->deleteComment();
+    }
+
+    private function getAddArticleController(): void
+    {
+        $addArticleController = new Article($this->twig);
+        $addArticleController->addArticle();
+    }
+
+    private function getShowAddArticlePage(): void
+    {
+        $showAddArticlePage = new Article($this->twig);
+        $showAddArticlePage->showAddArticlePage();
+    }
+
+    private function getNotPublishedArticleController(): void
+    {
+        $notPublishArticleController = new Article($this->twig);
+        $notPublishArticleController->showNotPublishedArticles();
+    }
+
+    private function getDeleteArticleController(): void
+    {
+        $deleteArticleController = new Article($this->twig);
+        $deleteArticleController->deleteArticle();
+    }
+
+    private function getPublishArticleController(): void
+    {
+        $publishArticleController = new Article($this->twig);
+        $publishArticleController->publishArticle();
     }
 }
