@@ -8,7 +8,6 @@ use App\Controllers\Comment;
 use App\Controllers\Homepage;
 use App\controllers\Articles;
 use App\Controllers\NotFoundController;
-use App\Session;
 use Twig\Environment;
 use \Twig\Loader\FilesystemLoader;
 use App\Controllers\User;
@@ -45,6 +44,8 @@ class Router
                 'showWaitingArticlesList' => $this->getNotPublishedArticleController(),
                 'deleteArticle' => $this->getDeleteArticleController(),
                 'publishArticle' => $this->getPublishArticleController(),
+                'editArticle' => $this->getEditArticleController(),
+                'showEditArticlePage' => $this->getShowEditArticlePage($_GET['id']),
                 default => $this->getNotFoundController(),
             };
         }
@@ -152,5 +153,17 @@ class Router
     {
         $publishArticleController = new Article($this->twig);
         $publishArticleController->publishArticle();
+    }
+
+    private function getEditArticleController(): void
+    {
+        $editArticleController = new Article($this->twig);
+        $editArticleController->editArticle();
+    }
+
+    private function getShowEditArticlePage($id): void
+    {
+        $showEditArticlePage = new Article($this->twig);
+        $showEditArticlePage->showEditArticlePage($id);
     }
 }

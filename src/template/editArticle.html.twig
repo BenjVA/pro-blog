@@ -1,0 +1,58 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <header class="masthead" style="background-image: url('/src/assets/Public/img/post-bg.jpg')">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="post-heading">
+                        <h1>Modifier votre article</h1>
+                        <span class="meta"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    {{ dump() }}
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            {% if editArticle %}
+                <p class="text-success text-center">{{ editArticle }}</p>
+                <a href="/index.php">Revenir à l'accueil</a>
+            {% endif %}
+            {% if not editArticle %}
+                <form method="post" action="/?action=editArticle&id={{ articleToEdit.id }}">
+                    <div class="form-group">
+                        <label for="title" class="form-label"></label>
+                        <textarea
+                                class="form-control"
+                                id="title"
+                                name="title"
+                                required>{{ articleToEdit.title }}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="short" class="form-label"></label>
+                        <textarea
+                                class="form-control"
+                                id="short"
+                                name="short"
+                                rows="3"
+                                required>{{ articleToEdit.short }}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="article" class="form-label"></label>
+                        <textarea
+                                class="form-control"
+                                id="article"
+                                name="article"
+                                rows="6"
+                                required>{{ articleToEdit.content }}</textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-outline-dark">Envoyer</button>
+                    </div>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

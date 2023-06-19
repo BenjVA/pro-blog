@@ -9,7 +9,7 @@
                         {% if not waitingValidation %}
                             <h1>{{ article.title }}</h1>
                             <span class="meta">
-                                Posté par {{ article.pseudo }} le {{ article.creationDate }}
+                                Posté par {{ article.pseudo }} le {{ article.createdAt }}
                                 <br>édité le {{ article.updatedAt }}
                             </span>
                         {% endif %}
@@ -24,8 +24,13 @@
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <p>{{ article.content }}</p>
                 </div>
+                {% if session.user.pseudo == article.pseudo or session.user.isAdmin == 1 %}
+                <a href="/?action=showEditArticlePage&id={{ article.id }}" class="btn">
+                    <i class="fa-solid fa-pen-to-square" style="color: #0000ff;"></i>Modifier l'article</a>
+                {% endif %}
             </div>
         </div>
+
     </article>
     {% if waitingValidationComment %}
         <p class="text-success text-center">{{ waitingValidationComment }}</p>

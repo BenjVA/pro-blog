@@ -48,13 +48,13 @@ class Article
             $article->connection = new DatabaseConnection();
             $addArticle = $article->addArticle($idUser, $title, $short, $content);
 
-            if ($addArticle) {
-                $this->twig->display('addArticle.html.twig', [
-                    'waitingValidationArticle' => 'Votre article est en attente de validation !'
-                ]);
+            if (!$addArticle) {
+                $this->twig->display('notFound.html.twig');
             }
         }
-        $this->twig->display('notFound.html.twig');
+        $this->twig->display('addArticle.html.twig', [
+            'waitingValidationArticle' => 'Votre article est en attente de validation !'
+        ]);
     }
 
     public function showNotPublishedArticles(): void
@@ -104,5 +104,35 @@ class Article
             'publishedArticle' => $publishedArticle ?? null,
             'errorPublishArticle' => $errorPublishArticle ?? null
         ]);
+    }
+
+    public function editArticle(): void
+    {
+        if (count($_POST) > 0) {
+            $id = $_GET['id'];
+            $title = $_POST['title'];
+            $short = $_POST['short'];
+            $content = $_POST['article'];
+
+            $article = new ArticleRepository();
+            $article->connection = new DatabaseConnection();
+            $editArticle = $article->editArticle($id, $title, $short, $content);
+
+            if (!$editArticle) {
+                $this->twig->display('notFound.html.twig');
+            }
+        }
+        $this->twig->display('editArticle.html.twig', [
+            'editArticle' => 'Votre article a bien été modifié !'
+        ]);
+    }
+
+    public function showEditArticlePage($id): void
+    {
+        $articleRepository = new ArticleRepository();
+        $articleRepository->connection = new DatabaseConnection();
+        $articleToEdit = $articleRepository->getSingleArticle($id);
+
+        $this->twig->display('editArticle.html.twig', ['articleToEdit' => $articleToEdit]);
     }
 }
