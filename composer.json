@@ -9,6 +9,7 @@
   "require": {
     "twig/twig": "^3.5",
     "ext-pdo": "*",
-    "twbs/bootstrap": "^5.2"
+    "twbs/bootstrap": "^5.2",
+    "phpmailer/phpmailer": "^6.8"
   }
 }
