@@ -8,6 +8,7 @@ use App\Model\DatabaseConnection;
 use App\Repository\ArticleRepository;
 use Twig\Environment;
 use Twig\Extension\DebugExtension;
+use PHPMailer\PHPMailer\PHPMailer;
 
 class Homepage
 {
