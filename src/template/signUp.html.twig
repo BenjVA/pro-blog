@@ -22,26 +22,30 @@
                 <p class="text-danger">{{ sameMailMessage }}</p>
             {% endif %}
             {% if validMessage %}
-                <p class="text-success">{{ ValidMessage }}</p>
-            {% endif %}
-            <form method="post" action="/?action=sign-up">
-                <div class="form-group">
-                    <label for="pseudo" class="form-label">Pseudo :</label>
-                    <input type="text" class="form-control" id="pseudo" name="pseudo" placeholder="Entrez votre pseudo">
-                </div>
-                <div class="form-group">
-                    <label for="mail" class="form-label">Email :</label>
-                    <input type="email" class="form-control" id="mail" name="mail" placeholder="email@exemple.com">
-                </div>
-                <div class="form-group">
-                    <label for="password" class="form-label">Mot de passe :</label>
-                    <input type="password" class="form-control" id="password" name="password">
-                </div>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-outline-dark">Envoyer</button>
+                    <p class="text-success">{{ validMessage }}</p>
+                    <a class="btn btn-outline py-4" href="/?action=login">Se connecter</a>
                 </div>
-            </form>
+            {% endif %}
+            {% if not validMessage %}
+                <form method="post" action="/?action=sign-up">
+                    <div class="form-group">
+                        <label for="pseudo" class="form-label">Pseudo :</label>
+                        <input type="text" class="form-control" id="pseudo" name="pseudo" placeholder="Entrez votre pseudo">
+                    </div>
+                    <div class="form-group">
+                        <label for="mail" class="form-label">Email :</label>
+                        <input type="email" class="form-control" id="mail" name="mail" placeholder="email@exemple.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="form-label">Mot de passe :</label>
+                        <input type="password" class="form-control" id="password" name="password">
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-outline-dark">Envoyer</button>
+                    </div>
+                </form>
+            {% endif %}
         </div>
     </div>
-    
 {% endblock %}
