@@ -15,7 +15,6 @@
     </header>
     <div class="row gx-4 gx-lg-5 justify-content-center">
         <div class="col-md-10 col-lg-8 col-xl-7">
-            {% if not validMessage %}
                 <form method="post" action="/?action=sign-up">
                     <div class="form-group">
                         <label for="pseudo" class="form-label">Pseudo :</label>
@@ -33,7 +32,6 @@
                         <button type="submit" class="btn btn-outline-dark">Envoyer</button>
                     </div>
                 </form>
-            {% endif %}
         </div>
     </div>
 {% endblock %}
