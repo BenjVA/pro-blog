@@ -43,6 +43,7 @@
                             <a href="/?action=publishComment&id={{ notPublishedComment.id }}"
                                class="btn"><i class="fa-solid fa-check" style="color: #00ff40;"></i></a>
                             <a href="/?action=deleteComment&id={{ notPublishedComment.id }}"
+                               onclick="return confirm('Voulez-vous supprimer définitivement ce commentaire ?')"
                                class="btn"><i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
                         </div>
                     </div>
