@@ -6,17 +6,9 @@ namespace App\Controllers;
 
 use App\Model\DatabaseConnection;
 use App\Repository\UserRepository;
-use Twig\Environment;
-use Twig\Extension\DebugExtension;
 
-class User
+class User extends Homepage
 {
-    public function __construct(public Environment $twig)
-    {
-        $this->twig->addExtension(new DebugExtension());
-        $this->twig->addGlobal('session', $_SESSION);
-    }
-
     public function signUpAction(): void
     {
         if (count($_POST) > 0) {
@@ -36,11 +28,25 @@ class User
                 $validMessage = 'Vous avez bien été enregistré !';
             }
         }
-        $this->twig->display('signUp.html.twig', [
-            'samePseudoMessage' => $samePseudoMessage ?? null,
-            'sameMailMessage' => $sameMailMessage ?? null,
-            'validMessage' => $validMessage ?? null
-        ]);
+        $this->showHomepage(
+            $samePseudoMessage ?? null,
+            $sameMailMessage ?? null,
+            $validMessage ?? null,
+            $userLogged ?? null,
+            $loginSuccessful ?? null,
+            $loginFailed ?? null,
+            $logoutSuccessful ?? null
+        );
+    }
+
+    public function showLogin(): void
+    {
+        $this->twig->display('login.html.twig');
+    }
+
+    public function showSignUp(): void
+    {
+        $this->twig->display('signUp.html.twig');
     }
 
     public function loginAction(): void
@@ -51,28 +57,39 @@ class User
 
             $login = new UserRepository();
             $login->connection = new DatabaseConnection();
-            $user = $login->connectUser($mail, $password);
+            $userLogged = $login->connectUser($mail, $password);
 
-            if ($user) {
+            if ($userLogged) {
                 $loginSuccessful = 'Connexion réussie';
             } else {
                 $loginFailed = 'Adresse mail ou mot de passe incorrect';
             }
         }
-        $this->twig->display('login.html.twig', [
-        'loginSuccessful' => $loginSuccessful ?? null,
-        'user' => $user ?? null,
-        'loginFailed' => $loginFailed ?? null
-        ]);
+        $this->showHomepage(
+            $samePseudoMessage ?? null,
+            $sameMailMessage ?? null,
+            $validMessage ?? null,
+            $userLogged ?? null,
+            $loginSuccessful ?? null,
+            $loginFailed ?? null,
+            $logoutSuccessful ?? null
+        );
     }
 
     public function logoutAction(): void
     {
         session_unset();
         session_destroy();
-        $this->twig->display('homepage.html.twig', [
-            'logoutSuccessful' => 'Vous êtes bien déconnecté, à bientôt !'
-        ]);
+        $logoutSuccessful = 'Vous êtes bien déconnecté, à bientôt !';
+        $this->showHomepage(
+            $samePseudoMessage ?? null,
+            $sameMailMessage ?? null,
+            $validMessage ?? null,
+            $userLogged ?? null,
+            $loginSuccessful ?? null,
+            $loginFailed ?? null,
+            $logoutSuccessful
+        );
     }
 
     public function showAdminPanel(): void
@@ -80,13 +97,27 @@ class User
         $this->twig->display('adminLayout.html.twig');
     }
 
-    public function showUserList(): void
+    public function showUserList($deletedUser,
+                                 $errorDeleteUser,
+                                 $deactivatedUser,
+                                 $errorDeactivateUser,
+                                 $activatedUser,
+                                 $errorActivateUser
+    ): void
     {
         $showUserList = new UserRepository();
         $showUserList->connection = new DatabaseConnection();
         $userList = $showUserList->getUsers();
 
-        $this->twig->display('userList.html.twig', ['userList' => $userList]);
+        $this->twig->display('userList.html.twig', [
+            'userList' => $userList,
+            'deletedUser' => $deletedUser ?? null,
+            'errorDeleteUser' => $errorDeleteUser ?? null,
+            'deactivatedUser' => $deactivatedUser ?? null,
+            'errorDeactivateUser' => $errorDeactivateUser ?? null,
+            'activatedUser' => $activatedUser ?? null,
+            'errorActivateUser' => $errorActivateUser ?? null
+        ]);
     }
 
     public function deleteUser(): void
@@ -103,10 +134,14 @@ class User
             $errorDeleteUser = 'Utilisateur non supprimé';
         }
 
-        $this->twig->display('userList.html.twig', [
-            'deletedUser' => $deletedUser ?? null,
-            'errorDeleteUser' => $errorDeleteUser ?? null
-        ]);
+        $this->showUserList(
+            $deletedUser ?? null,
+            $errorDeleteUser ?? null,
+            $deactivatedUser ?? null,
+            $errorDeactivateUser ?? null,
+            $activatedUser ?? null,
+            $errorActivateUser ?? null
+        );
     }
 
     public function deactivateUser(): void
@@ -123,10 +158,13 @@ class User
             $errorDeactivateUser = 'Utilisateur non désactivé';
         }
 
-        $this->twig->display('userList.html.twig', [
-            'deactivatedUser' => $deactivatedUser ?? null,
-            'errorDeactivateUser' => $errorDeactivateUser ?? null
-        ]);
+        $this->showUserList($deletedUser ?? null,
+            $errorDeleteUser ?? null,
+            $deactivatedUser ?? null,
+            $errorDeactivateUser ?? null,
+            $activatedUser ?? null,
+            $errorActivateUser ?? null
+        );
     }
 
     public function activateUser(): void
@@ -143,9 +181,12 @@ class User
             $errorActivateUser = 'Utilisateur non activé';
         }
 
-        $this->twig->display('userList.html.twig', [
-            'activatedUser' => $activatedUser ?? null,
-            'errorActivateUser' => $errorActivateUser ?? null
-        ]);
+        $this->showUserList($deletedUser ?? null,
+            $errorDeleteUser ?? null,
+            $deactivatedUser ?? null,
+            $errorDeactivateUser ?? null,
+            $activatedUser ?? null,
+            $errorActivateUser ?? null
+        );
     }
 }

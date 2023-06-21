@@ -6,17 +6,9 @@ namespace App\Controllers;
 
 use App\Model\DatabaseConnection;
 use App\Repository\CommentRepository;
-use Twig\Environment;
-use Twig\Extension\DebugExtension;
 
-class Comment
+class Comment extends Article
 {
-    public function __construct(public Environment $twig)
-    {
-        $this->twig->addExtension(new DebugExtension());
-        $this->twig->addGlobal('session', $_SESSION);
-    }
-
     public function addComment(): void
     {
         if (count($_POST) > 0) {
@@ -29,21 +21,31 @@ class Comment
             $addComment = $comment->addComment($idArticle, $idUser, $content);
 
             if (!$addComment) {
-                $this->twig->display('notFound.html.twig');
+                $notAddedComment = 'Votre commentaire n\'a pas pu être envoyé !';
             }
         }
-        $this->twig->display('article.html.twig', [
-            'waitingValidationComment' => 'Votre commentaire est en attente de validation !'
-        ]);
+
+        $addedComment = 'Votre commentaire est en attente de validation !';
+        $this->showPublishedArticle($idArticle ?? null,
+            $notAddedComment ?? null,
+            $addedComment
+        );
     }
 
-    public function showNotPublishedComments(): void
+    public function showNotPublishedComments(
+        $publishedComment, $errorPublishComment, $deletedComment, $errorDeleteComment): void
     {
         $notPublishedComment = new CommentRepository();
         $notPublishedComment->connection = new DatabaseConnection();
         $notPublishedComments = $notPublishedComment->getWaitingPublicationComments();
 
-        $this->twig->display('waitingCommentsList.html.twig', ['notPublishedComments' => $notPublishedComments]);
+        $this->twig->display('waitingCommentsList.html.twig', [
+            'notPublishedComments' => $notPublishedComments,
+            'publishedComment' => $publishedComment,
+            'errorPublishComment' => $errorPublishComment,
+            'deletedComment' => $deletedComment,
+            'errorDeleteComment' => $errorDeleteComment
+        ]);
     }
 
     public function publishComment(): void
@@ -60,10 +62,12 @@ class Comment
             $errorPublishComment = 'Commentaire non validé';
         }
 
-        $this->twig->display('waitingCommentsList.html.twig', [
-            'publishedComment' => $publishedComment ?? null,
-            'errorPublishComment' => $errorPublishComment ?? null
-        ]);
+        $this->showNotPublishedComments(
+            $publishedComment ?? null,
+            $errorPublishComment ?? null,
+            $deletedComment ?? null,
+            $errorDeleteComment ?? null
+        );
     }
 
     public function deleteComment(): void
@@ -80,9 +84,11 @@ class Comment
             $errorDeleteComment = 'Commentaire non supprimé';
         }
 
-        $this->twig->display('waitingCommentsList.html.twig', [
-            'deletedComment' => $deletedComment ?? null,
-            'errorDeleteComment' => $errorDeleteComment ?? null
-        ]);
+        $this->showNotPublishedComments(
+            $publishedComment ?? null,
+            $errorPublishComment ?? null,
+            $deletedComment ?? null,
+            $errorDeleteComment ?? null
+        );
     }
 }

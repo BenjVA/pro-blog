@@ -17,19 +17,19 @@
         <div class="row align-items-start justify-content-center gy-4 py-4">
             {% if publishedComment %}
                 <p class="text-center text-success">{{ publishedComment }}</p>
-                <a href="/?action=showWaitingCommentsList">Voir les commentaires en attente de validation</a>
+                <a class="btn btn-outline py-4" href="/?action=showWaitingCommentsList">Voir les commentaires en attente de validation</a>
             {% endif %}
             {% if deletedComment %}
                 <p class="text-center text-success">{{ deletedComment }}</p>
-                <a href="/?action=showWaitingCommentsList">Voir les commentaires en attente de validation</a>
+                <a class="btn btn-outline py-4" href="/?action=showWaitingCommentsList">Voir les commentaires en attente de validation</a>
             {% endif %}
             {% if errorDeleteComment %}
                 <p class="text-center text-danger">{{ errorDeleteComment }}</p>
-                <a href="/?action=showWaitingCommentsList">Voir les commentaires en attente de validation</a>
+                <a class="btn btn-outline py-4" href="/?action=showWaitingCommentsList">Voir les commentaires en attente de validation</a>
             {% endif %}
             {% if errorPublishComment %}
                 <p class="text-center text-danger">{{ errorPublishComment }}</p>
-                <a href="/?action=showWaitingCommentsList">Voir les commentaires en attente de validation</a>
+                <a class="btn btn-outline py-4" href="/?action=showWaitingCommentsList">Voir les commentaires en attente de validation</a>
             {% endif %}
             {% if notPublishedComments is empty %}
                     <p class="text-center text-bg-info">Aucun commentaire en attente !</p>

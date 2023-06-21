@@ -17,19 +17,19 @@
         <div class="row align-items-start justify-content-center gy-4 py-4">
             {% if publishedArticle %}
                 <p class="text-center text-success">{{ publishedArticle }}</p>
-                <a href="/?action=showWaitingArticlesList">Voir les articles en attente de validation</a>
+                <a class="btn btn-outline py-4" href="/?action=showWaitingArticlesList">Voir les articles en attente de validation</a>
             {% endif %}
             {% if deletedArticle %}
                 <p class="text-center text-success">{{ deletedArticle }}</p>
-                <a href="/?action=showWaitingArticlesList">Voir les articles en attente de validation</a>
+                <a class="btn btn-outline py-4" href="/?action=showWaitingArticlesList">Voir les articles en attente de validation</a>
             {% endif %}
             {% if errorDeleteArticle %}
                 <p class="text-center text-danger">{{ errorDeleteArticle }}</p>
-                <a href="/?action=showWaitingArticlesList">Voir les articles en attente de validation</a>
+                <a class="btn btn-outline py-4" href="/?action=showWaitingArticlesList">Voir les articles en attente de validation</a>
             {% endif %}
             {% if errorPublishArticle %}
                 <p class="text-center text-danger">{{ errorPublishArticle }}</p>
-                <a href="/?action=showWaitingArticlesList">Voir les articles en attente de validation</a>
+                <a class="btn btn-outline py-4" href="/?action=showWaitingArticlesList">Voir les articles en attente de validation</a>
             {% endif %}
             {% if notPublishedArticles is empty %}
                 <p class="text-center text-bg-info">Aucun article en attente !</p>

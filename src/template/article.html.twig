@@ -6,13 +6,11 @@
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <div class="post-heading">
-                        {% if not waitingValidation %}
                             <h1>{{ article.title }}</h1>
                             <span class="meta">
                                 Posté par {{ article.pseudo }} le {{ article.createdAt }}
                                 <br>édité le {{ article.updatedAt }}
                             </span>
-                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -25,15 +23,23 @@
                     <p>{{ article.content }}</p>
                 </div>
                 {% if session.user.pseudo == article.pseudo or session.user.isAdmin == 1 %}
-                <a href="/?action=showEditArticlePage&id={{ article.id }}" class="btn">
-                    <i class="fa-solid fa-pen-to-square" style="color: #0000ff;"></i>Modifier l'article</a>
+                        <a href="/?action=showEditArticlePage&id={{ article.id }}" class="btn">
+                            <i class="fa-solid fa-pen-to-square" style="color: #0000ff;"></i>Modifier l'article</a>
                 {% endif %}
             </div>
         </div>
-
     </article>
     {% if waitingValidationComment %}
-        <p class="text-success text-center">{{ waitingValidationComment }}</p>
+        <div class="text-center">
+            <p class="text-success">{{ waitingValidationComment }}</p>
+            <a href="/index.php" class="btn btn-outline py-4">Retour à l'accueil</a>
+        </div>
+    {% endif %}
+    {% if notWaitingValidationComment %}
+        <div class="text-center">
+            <p class="text-danger">{{ notWaitingValidationComment }}</p>
+            <a href="/?action=articles" class="btn btn-outline py-4">Retour à la liste des articles</a>
+        </div>
     {% endif %}
     <hr class="my-4">
     <div class="container">
@@ -68,11 +74,13 @@
                     </form>
                 {% endif %}
                 {% if not session.user.pseudo %}
-                    <a href="?action=login"
-                       class="text-center">Veuillez vous connecter pour poster un commentaire.</a>
-                    <br>
-                    <a href="?action=signUp"
-                       class="text-center">Inscrivez-vous si vous n'avez pas encore de compte.</a>
+                    <div class="text-center">
+                        <a href="?action=login"
+                           class="btn btn-outline py-4">Veuillez vous connecter pour poster un commentaire.</a>
+                        <br>
+                        <a href="?action=signUp"
+                           class="btn btn-outline py-4">Inscrivez-vous si vous n'avez pas encore de compte.</a>
+                    </div>
                 {% endif %}
         </div>
     </div>
