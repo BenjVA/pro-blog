@@ -80,7 +80,6 @@ class ArticleRepository
         );
         $statement->execute([$id]);
 
-
         $row = $statement->fetch();
         $article = new Article();
         $article->title = $row['title'];
@@ -123,7 +122,7 @@ class ArticleRepository
 
         $notPublishedArticles = [];
 
-        while (($row = $statement->fetch())) {
+        while ($row = $statement->fetch()) {
             $notPublishedArticle = new Article();
             $notPublishedArticle->id = $row['id'];
             $notPublishedArticle->pseudo = $row['pseudo'];

@@ -56,7 +56,7 @@ class User
             if ($user) {
                 $loginSuccessful = 'Connexion réussie';
             } else {
-                $loginFailed = 'Connexion échouée';
+                $loginFailed = 'Adresse mail ou mot de passe incorrect';
             }
         }
         $this->twig->display('login.html.twig', [
@@ -78,5 +78,74 @@ class User
     public function showAdminPanel(): void
     {
         $this->twig->display('adminLayout.html.twig');
+    }
+
+    public function showUserList(): void
+    {
+        $showUserList = new UserRepository();
+        $showUserList->connection = new DatabaseConnection();
+        $userList = $showUserList->getUsers();
+
+        $this->twig->display('userList.html.twig', ['userList' => $userList]);
+    }
+
+    public function deleteUser(): void
+    {
+        $id = $_GET['id'];
+
+        $deleteUser = new UserRepository();
+        $deleteUser->connection = new DatabaseConnection();
+        $deleteUsers = $deleteUser->deleteUser($id);
+
+        if ($deleteUsers) {
+            $deletedUser = 'Utilisateur supprimé !';
+        } else {
+            $errorDeleteUser = 'Utilisateur non supprimé';
+        }
+
+        $this->twig->display('userList.html.twig', [
+            'deletedUser' => $deletedUser ?? null,
+            'errorDeleteUser' => $errorDeleteUser ?? null
+        ]);
+    }
+
+    public function deactivateUser(): void
+    {
+        $id = $_GET['id'];
+
+        $deactivateUser = new UserRepository();
+        $deactivateUser->connection = new DatabaseConnection();
+        $deactivateUsers = $deactivateUser->deactivateUser($id);
+
+        if ($deactivateUsers) {
+            $deactivatedUser = 'Utilisateur désactivé !';
+        } else {
+            $errorDeactivateUser = 'Utilisateur non désactivé';
+        }
+
+        $this->twig->display('userList.html.twig', [
+            'deactivatedUser' => $deactivatedUser ?? null,
+            'errorDeactivateUser' => $errorDeactivateUser ?? null
+        ]);
+    }
+
+    public function activateUser(): void
+    {
+        $id = $_GET['id'];
+
+        $activateUser = new UserRepository();
+        $activateUser->connection = new DatabaseConnection();
+        $activateUsers = $activateUser->activateUser($id);
+
+        if ($activateUsers) {
+            $activatedUser = 'Utilisateur activé !';
+        } else {
+            $errorActivateUser = 'Utilisateur non activé';
+        }
+
+        $this->twig->display('userList.html.twig', [
+            'activatedUser' => $activatedUser ?? null,
+            'errorActivateUser' => $errorActivateUser ?? null
+        ]);
     }
 }

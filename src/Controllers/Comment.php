@@ -77,12 +77,12 @@ class Comment
         if ($deleteComments) {
             $deletedComment = 'Commentaire supprimé !';
         } else {
-            $errorDeleteComment = 'Commentaire non validé';
+            $errorDeleteComment = 'Commentaire non supprimé';
         }
 
         $this->twig->display('waitingCommentsList.html.twig', [
             'deletedComment' => $deletedComment ?? null,
-            'errorPublishComment' => $errorDeleteComment ?? null
+            'errorDeleteComment' => $errorDeleteComment ?? null
         ]);
     }
 }

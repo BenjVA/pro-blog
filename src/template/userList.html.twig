@@ -1,0 +1,86 @@
+{% extends 'adminLayout.html.twig' %}
+
+{% block content %}
+    <header class="masthead" style="background-image: url('/src/assets/Public/img/about-bg.jpg')">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="page-heading">
+                        <h1>Gestion des utilisateurs</h1>
+                        <span class="subheading"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="row align-items-start justify-content-center gy-4 py-4">
+            {% if deletedUser %}
+                <div class="text-center">
+                    <p class="text-success">{{ deletedUser }}</p>
+                    <a class="btn btn-outline py-4" href="/?action=showUserList">Voir les utilisateurs</a>
+                </div>
+            {% endif %}
+            {% if errorDeleteUser %}
+                <div class="text-center">
+                    <p class="text-danger">{{ errorDeleteUser }}</p>
+                    <a class="btn btn-outline py-4" href="/?action=showUserList">Voir les utilisateurs</a>
+                </div>
+            {% endif %}
+            {% if deactivatedUser %}
+                <div class="text-center">
+                    <p class="text-success">{{ deactivatedUser }}</p>
+                    <a class="btn btn-outline py-4" href="/?action=showUserList">Voir les utilisateurs</a>
+                </div>
+            {% endif %}
+            {% if errorDeactivateUser %}
+                <div class="text-center">
+                    <p class="text-danger">{{ errorDeactivateUser }}</p>
+                    <a class="btn btn-outline py-4" href="/?action=showUserList">Voir les utilisateurs</a>
+                </div>
+            {% endif %}
+            {% if activatedUser %}
+                <div class="text-center">
+                    <p class="text-success">{{ activatedUser }}</p>
+                    <a class="btn btn-outline py-4" href="/?action=showUserList">Voir les utilisateurs</a>
+                </div>
+            {% endif %}
+            {% if errorActivateUser %}
+                <div class="text-center">
+                    <p class="text-danger">{{ errorActivateUser }}</p>
+                    <a class="btn btn-outline py-4" href="/?action=showUserList">Voir les utilisateurs</a>
+                </div>
+            {% endif %}
+            {% for users in userList %}
+                <div class="col-md text-center">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">Pseudo : {{ users.pseudo }}</h5>
+                            <h6 class="card-subtitle mb-2 text-body-secondary">Id num : {{ users.id }}</h6>
+                            {% if users.isAdmin == 3 %}
+                                <p>Utilisateur désactivé</p>
+                            {% endif %}
+                            <p class="card-text">Adresse mail : {{ users.mail }}</p>
+                            {% if users.isAdmin != 3 %}
+                                <a href="/?action=deactivateUser&id={{ users.id }}"
+                                    class="btn"><i class="fa-solid fa-pause" style="color: #0000ff;"></i></a>
+                            {% endif %}
+                            {% if users.isAdmin == 3 %}
+                                <a href="/?action=activateUser&id={{ users.id }}"
+                                   class="btn"><i class="fa-solid fa-play" style="color: #0000ff;"></i></a>
+                            {% endif %}
+                            <a href="/?action=deleteUser&id={{ users.id }}"
+                               class="btn"><i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="text-center">
+                <a class="btn btn-outline py-4" href="/index.php">Revenir à l'accueil</a>
+            </div>
+            <div class="text-center">
+                <a class="btn btn-outline py-4" href="/?action=showAdminPanel">Revenir au panneau d'administration</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
