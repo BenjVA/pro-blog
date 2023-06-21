@@ -50,11 +50,21 @@ class Router
                 'deleteUser' => $this->getDeleteUserController(),
                 'deactivateUser' => $this->getDeactivateUserController(),
                 'activateUser' => $this->getActivateUserController(),
+                'showLogin' => $this->getShowLoginController(),
+                'showSignUp' => $this->getShowSignUpController(),
                 default => $this->getNotFoundController(),
             };
         }
         else {
-            (new Homepage($this->twig))->showHomepage();
+            (new Homepage($this->twig))->showHomepage(
+                $samePseudoMessage ?? null,
+                $sameMailMessage ?? null,
+                $validMessage ?? null,
+                $userLogged ?? null,
+                $loginSuccessful ?? null,
+                $loginFailed ?? null,
+                $logoutSuccessful ?? null
+            );
         }
     }
 
@@ -68,7 +78,10 @@ class Router
     {
         if ($id && $id > 0) {
             $articleController = new Article($this->twig);
-            $articleController->showPublishedArticle($id);
+            $articleController->showPublishedArticle(
+            $id,
+            $notAddedComment ?? null,
+            $addedComment ?? null);
         }
         else {
             $this->getNotFoundController();
@@ -108,7 +121,12 @@ class Router
     private function getNotPublishedCommentsController(): void
     {
         $notPublishedCommentsController = new Comment($this->twig);
-        $notPublishedCommentsController->showNotPublishedComments();
+        $notPublishedCommentsController->showNotPublishedComments(
+            $publishedComment ?? null,
+            $errorPublishComment ?? null,
+            $deletedComment ?? null,
+            $errorDeleteComment ?? null
+        );
     }
 
     private function getAdminPanelController(): void
@@ -138,25 +156,37 @@ class Router
     private function getShowAddArticlePage(): void
     {
         $showAddArticlePage = new Article($this->twig);
-        $showAddArticlePage->showAddArticlePage();
+        $showAddArticlePage->showAddArticlePage($successAddArticle ?? null);
     }
 
     private function getNotPublishedArticleController(): void
     {
         $notPublishArticleController = new Article($this->twig);
-        $notPublishArticleController->showNotPublishedArticles();
+        $notPublishArticleController->showNotPublishedArticles(
+            $deletedArticle ?? null,
+            $errorDeleteArticle ?? null,
+            $publishedArticle ?? null,
+            $errorPublishArticle ?? null);
     }
 
     private function getDeleteArticleController(): void
     {
         $deleteArticleController = new Article($this->twig);
-        $deleteArticleController->deleteArticle();
+        $deleteArticleController->deleteArticle(
+            $deletedArticle ?? null,
+            $errorDeleteArticle ?? null,
+            $publishedArticle ?? null,
+            $errorPublishArticle ?? null);
     }
 
     private function getPublishArticleController(): void
     {
         $publishArticleController = new Article($this->twig);
-        $publishArticleController->publishArticle();
+        $publishArticleController->publishArticle(
+            $deletedArticle ?? null,
+            $errorDeleteArticle ?? null,
+            $publishedArticle ?? null,
+            $errorPublishArticle ?? null);
     }
 
     private function getEditArticleController(): void
@@ -168,13 +198,23 @@ class Router
     private function getShowEditArticlePageController($id): void
     {
         $showEditArticlePageController = new Article($this->twig);
-        $showEditArticlePageController->showEditArticlePage($id);
+        $showEditArticlePageController->showEditArticlePage(
+            $id,
+            $editedArticle ?? null,
+            $notEditedArticle ?? null
+        );
     }
 
     private function getShowUserListController(): void
     {
         $showUserListController = new User($this->twig);
-        $showUserListController->showUserList();
+        $showUserListController->showUserList($deletedUser ?? null,
+            $errorDeleteUser ?? null,
+            $deactivatedUser ?? null,
+            $errorDeactivateUser ?? null,
+            $activatedUser ?? null,
+            $errorActivateUser ?? null
+        );
     }
 
     private function getDeleteUserController(): void
@@ -193,5 +233,17 @@ class Router
     {
         $activateUserController = new User($this->twig);
         $activateUserController->activateUser();
+    }
+
+    private function getShowLoginController(): void
+    {
+        $showLoginController = new User($this->twig);
+        $showLoginController->showLogin();
+    }
+
+    private function getShowSignUpController(): void
+    {
+        $showSignUpController = new User($this->twig);
+        $showSignUpController->showSignUp();
     }
 }

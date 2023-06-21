@@ -15,11 +15,20 @@
     </header>
     <div class="row gx-4 gx-lg-5 justify-content-center">
         <div class="col-md-10 col-lg-8 col-xl-7">
-            {% if editArticle %}
-                <p class="text-success text-center">{{ editArticle }}</p>
-                <a href="/index.php">Revenir à l'accueil</a>
+            {% if editedArticle %}
+                <div class="text-center">
+                    <p class="text-success">{{ editedArticle }}</p>
+                    <a class="btn btn-outline py-4" href="/index.php">Revenir à l'accueil</a>
+                </div>
             {% endif %}
-            {% if not editArticle %}
+            {% if notEditedArticle %}
+                <div class="text-center">
+                    <p class="text-danger">{{ notEditedArticle }}</p>
+                    <a class="btn btn-outline py-4" href="/?action=articles">Revenir à la liste d'articles</a>
+                    <a class="btn btn-outline py-4" href="/index.php">Revenir à l'accueil</a>
+                </div>
+            {% endif %}
+            {% if not editedArticle or notEditedArticle %}
                 <form method="post" action="/?action=editArticle&id={{ articleToEdit.id }}">
                     <div class="form-group">
                         <label for="title" class="form-label"></label>

@@ -22,9 +22,9 @@
                                 class="nav-link px-lg-3 py-3 py-lg-4" href="?action=articles">Articles</a></li>
                     {% if not session.user.pseudo %}
                         <li class="nav-item"><a
-                                    class="nav-link px-lg-3 py-3 py-lg-4" href="?action=sign-up">Inscription</a></li>
+                                    class="nav-link px-lg-3 py-3 py-lg-4" href="?action=showSignUp">Inscription</a></li>
                         <li class="nav-item"><a
-                                    class="nav-link px-lg-3 py-3 py-lg-4" href="?action=login">Connexion</a></li>
+                                    class="nav-link px-lg-3 py-3 py-lg-4" href="?action=showLogin">Connexion</a></li>
                     {% endif %}
                     {% if session.user.pseudo %}
                         {% if session.user.isAdmin != 3 %}

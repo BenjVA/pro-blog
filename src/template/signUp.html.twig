@@ -15,19 +15,6 @@
     </header>
     <div class="row gx-4 gx-lg-5 justify-content-center">
         <div class="col-md-10 col-lg-8 col-xl-7">
-            {% if samePseudoMessage %}
-                <p class="text-danger">{{ samePseudoMessage }}</p>
-            {% endif %}
-            {% if sameMailMessage %}
-                <p class="text-danger">{{ sameMailMessage }}</p>
-            {% endif %}
-            {% if validMessage %}
-                <div class="text-center">
-                    <p class="text-success">{{ validMessage }}</p>
-                    <a class="btn btn-outline py-4" href="/?action=login">Se connecter</a>
-                </div>
-            {% endif %}
-            {% if not validMessage %}
                 <form method="post" action="/?action=sign-up">
                     <div class="form-group">
                         <label for="pseudo" class="form-label">Pseudo :</label>
@@ -45,7 +32,6 @@
                         <button type="submit" class="btn btn-outline-dark">Envoyer</button>
                     </div>
                 </form>
-            {% endif %}
         </div>
     </div>
 {% endblock %}

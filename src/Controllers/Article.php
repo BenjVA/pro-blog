@@ -18,7 +18,7 @@ class Article
         $this->twig->addGlobal('session', $_SESSION);
     }
 
-    public function showPublishedArticle(string $id): void
+    public function showPublishedArticle(string $id, $notAddedComment, $addedComment): void
     {
         $articleRepository = new ArticleRepository();
         $commentRepository = new CommentRepository();
@@ -28,7 +28,11 @@ class Article
         $article = $articleRepository->getSingleArticle($id);
         $comments = $commentRepository->getPublishedComments($id);
 
-        $this->twig->display('article.html.twig', ['article' => $article, 'comments' => $comments]);
+        $this->twig->display('article.html.twig', [
+            'article' => $article, 'comments' => $comments,
+            'waitingValidationComment' => $addedComment,
+            'notWaitingValidationComment' => $notAddedComment ?? null
+        ]);
     }
 
     public function showAddArticlePage(): void
@@ -49,24 +53,34 @@ class Article
             $addArticle = $article->addArticle($idUser, $title, $short, $content);
 
             if (!$addArticle) {
-                $this->twig->display('notFound.html.twig');
+                $notAddedArticle = 'Votre article n\'a pas pu être ajouté';
             }
         }
+
+        $addedArticle = 'Votre article est en attente de validation !';
         $this->twig->display('addArticle.html.twig', [
-            'waitingValidationArticle' => 'Votre article est en attente de validation !'
+            'waitingValidationArticle' => $addedArticle,
+            'notWaitingValidationArticle' => $notAddedArticle ?? null
         ]);
     }
 
-    public function showNotPublishedArticles(): void
+    public function showNotPublishedArticles(
+        $deletedArticle, $errorDeleteArticle, $publishedArticle, $errorPublishArticle): void
     {
         $notPublishedArticle = new ArticleRepository();
         $notPublishedArticle->connection = new DatabaseConnection();
         $notPublishedArticles = $notPublishedArticle->getWaitingPublicationArticles();
 
-        $this->twig->display('waitingArticlesList.html.twig', ['notPublishedArticles' => $notPublishedArticles]);
+        $this->twig->display('waitingArticlesList.html.twig', [
+            'notPublishedArticles' => $notPublishedArticles,
+            'deletedArticle' => $deletedArticle,
+            'errorDeleteArticle' => $errorDeleteArticle,
+            'publishedArticle' => $publishedArticle,
+            'errorPublishArticle' => $errorPublishArticle
+        ]);
     }
 
-    public function deleteArticle(): void
+    public function deleteArticle($deletedArticle, $errorDeleteArticle, $publishedArticle, $errorPublishArticle): void
     {
         $id = $_GET['id'];
 
@@ -80,13 +94,14 @@ class Article
             $errorDeleteArticle = 'Article non supprimé';
         }
 
-        $this->twig->display('waitingArticlesList.html.twig', [
-            'deletedArticle' => $deletedArticle ?? null,
-            'errorPublishArticle' => $errorDeleteArticle ?? null
-        ]);
+        $this->showNotPublishedArticles($deletedArticle ?? null,
+            $errorDeleteArticle ?? null,
+            $publishedArticle ?? null,
+            $errorPublishArticle ?? null
+        );
     }
 
-    public function publishArticle(): void
+    public function publishArticle($deletedArticle, $errorDeleteArticle, $publishedArticle, $errorPublishArticle): void
     {
         $id = $_GET['id'];
 
@@ -100,10 +115,12 @@ class Article
             $errorPublishArticle = 'Erreur dans la publication de l\'article';
         }
 
-        $this->twig->display('waitingArticlesList.html.twig', [
-            'publishedArticle' => $publishedArticle ?? null,
-            'errorPublishArticle' => $errorPublishArticle ?? null
-        ]);
+        $this->showNotPublishedArticles(
+            $deletedArticle ?? null,
+            $errorDeleteArticle ?? null,
+            $publishedArticle ?? null,
+            $errorPublishArticle ?? null
+        );
     }
 
     public function editArticle(): void
@@ -119,20 +136,24 @@ class Article
             $editArticle = $article->editArticle($id, $title, $short, $content);
 
             if (!$editArticle) {
-                $this->twig->display('notFound.html.twig');
+                $notEditedArticle = 'Votre article n\'a pas pu être modifié !';
             }
         }
-        $this->twig->display('editArticle.html.twig', [
-            'editArticle' => 'Votre article a bien été modifié !'
-        ]);
+
+        $editedArticle = 'Votre article a bien été modifié !';
+        $this->showEditArticlePage($id ?? null, $editedArticle, $notEditedArticle ?? null);
     }
 
-    public function showEditArticlePage($id): void
+    public function showEditArticlePage($id, $editedArticle, $notEditedArticle): void
     {
         $articleRepository = new ArticleRepository();
         $articleRepository->connection = new DatabaseConnection();
         $articleToEdit = $articleRepository->getSingleArticle($id);
 
-        $this->twig->display('editArticle.html.twig', ['articleToEdit' => $articleToEdit]);
+        $this->twig->display('editArticle.html.twig', [
+            'articleToEdit' => $articleToEdit,
+            'editedArticle' => $editedArticle,
+            'notEditedArticle' => $notEditedArticle ?? null
+        ]);
     }
 }

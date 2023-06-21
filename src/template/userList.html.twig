@@ -57,9 +57,6 @@
                         <div class="card-body">
                             <h5 class="card-title">Pseudo : {{ users.pseudo }}</h5>
                             <h6 class="card-subtitle mb-2 text-body-secondary">Id num : {{ users.id }}</h6>
-                            {% if users.isAdmin == 3 %}
-                                <p>Utilisateur désactivé</p>
-                            {% endif %}
                             <p class="card-text">Adresse mail : {{ users.mail }}</p>
                             {% if users.isAdmin != 3 %}
                                 <a href="/?action=deactivateUser&id={{ users.id }}"
