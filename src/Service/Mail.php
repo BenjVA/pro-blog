@@ -2,7 +2,6 @@
 
 namespace App\Service;
 
-<<<<<<< HEAD
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP;
@@ -91,10 +90,4 @@ class Mail
                         'Message:' $this->message
                         EOT;
     }
-=======
-
-class Mail
-{
-
->>>>>>> e6cebe1 (First commit adding phpmailer lib)
 }
