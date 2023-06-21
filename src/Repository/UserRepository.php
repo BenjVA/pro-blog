@@ -92,4 +92,62 @@ class UserRepository
 
         return ($affectedLine > 0);
     }
+
+    public function deleteUser(string $id): bool
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            "DELETE FROM user WHERE id = :id"
+        );
+
+        $affectedLine = $statement->execute([
+            'id' => $id
+        ]);
+
+        return ($affectedLine > 0);
+    }
+
+    public function getUsers(): array
+    {
+        $statement = $this->connection->getConnection()->query(
+            "SELECT * FROM user"
+        );
+
+        $users = [];
+
+        while ($row = $statement->fetch()) {
+            $user = new User();
+            $user->id = $row['id'];
+            $user->pseudo = $row['pseudo'];
+            $user->mail = $row['mail'];
+            $user->isAdmin = $row['isAdmin'];
+
+            $users[] = $user;
+        }
+
+        return $users;
+    }
+
+    public function deactivateUser(string $id): bool
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            "UPDATE user SET isAdmin = 3 WHERE id = :id"
+        );
+        $affectedLine = $statement->execute([
+            'id' => $id
+        ]);
+
+        return ($affectedLine > 0);
+    }
+
+    public function activateUser(string $id): bool
+    {
+        $statement = $this->connection->getConnection()->prepare(
+            "UPDATE user SET isAdmin = 2 WHERE id = :id"
+        );
+        $affectedLine = $statement->execute([
+            'id' => $id
+        ]);
+
+        return ($affectedLine > 0);
+    }
 }

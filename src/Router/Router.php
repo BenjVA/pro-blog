@@ -45,7 +45,11 @@ class Router
                 'deleteArticle' => $this->getDeleteArticleController(),
                 'publishArticle' => $this->getPublishArticleController(),
                 'editArticle' => $this->getEditArticleController(),
-                'showEditArticlePage' => $this->getShowEditArticlePage($_GET['id']),
+                'showEditArticlePage' => $this->getShowEditArticlePageController($_GET['id']),
+                'showUserList' => $this->getShowUserListController(),
+                'deleteUser' => $this->getDeleteUserController(),
+                'deactivateUser' => $this->getDeactivateUserController(),
+                'activateUser' => $this->getActivateUserController(),
                 default => $this->getNotFoundController(),
             };
         }
@@ -161,9 +165,33 @@ class Router
         $editArticleController->editArticle();
     }
 
-    private function getShowEditArticlePage($id): void
+    private function getShowEditArticlePageController($id): void
     {
-        $showEditArticlePage = new Article($this->twig);
-        $showEditArticlePage->showEditArticlePage($id);
+        $showEditArticlePageController = new Article($this->twig);
+        $showEditArticlePageController->showEditArticlePage($id);
+    }
+
+    private function getShowUserListController(): void
+    {
+        $showUserListController = new User($this->twig);
+        $showUserListController->showUserList();
+    }
+
+    private function getDeleteUserController(): void
+    {
+        $deleteUserController = new User($this->twig);
+        $deleteUserController->deleteUser();
+    }
+
+    private function getDeactivateUserController(): void
+    {
+        $deactivateUserController = new User($this->twig);
+        $deactivateUserController->deactivateUser();
+    }
+
+    private function getActivateUserController(): void
+    {
+        $activateUserController = new User($this->twig);
+        $activateUserController->activateUser();
     }
 }

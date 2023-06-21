@@ -82,7 +82,7 @@ class Comment
 
         $this->twig->display('waitingCommentsList.html.twig', [
             'deletedComment' => $deletedComment ?? null,
-            'errorPublishComment' => $errorDeleteComment ?? null
+            'errorDeleteComment' => $errorDeleteComment ?? null
         ]);
     }
 }
