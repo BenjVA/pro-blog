@@ -39,7 +39,7 @@ class Router
                 'showWaitingCommentsList' => $this->getNotPublishedCommentsController(),
                 'publishComment' => $this->getPublishCommentController(),
                 'deleteComment' => $this->getDeleteCommentController(),
-                'addArticle' => $this->getaddArticleController(),
+                'addArticle' => $this->getAddArticleController(),
                 'showAddArticlePage' => $this->getShowAddArticlePage(),
                 'showWaitingArticlesList' => $this->getNotPublishedArticleController(),
                 'deleteArticle' => $this->getDeleteArticleController(),
@@ -154,7 +154,7 @@ class Router
     private function getShowAddArticlePage(): void
     {
         $showAddArticlePage = new Article($this->twig);
-        $showAddArticlePage->showAddArticlePage($successAddArticle ?? null);
+        $showAddArticlePage->showAddArticlePage();
     }
 
     private function getNotPublishedArticleController(): void
@@ -193,7 +193,7 @@ class Router
         $editArticleController->editArticle();
     }
 
-    private function getShowEditArticlePageController($id): void
+    private function getShowEditArticlePageController(string $id): void
     {
         $showEditArticlePageController = new Article($this->twig);
         $showEditArticlePageController->showEditArticlePage(
