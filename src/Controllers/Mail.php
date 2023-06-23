@@ -14,6 +14,7 @@ class Mail
         $this->twig->addGlobal('session', $_SESSION);
     }
 
+
     /**
      * @throws Exception
      */

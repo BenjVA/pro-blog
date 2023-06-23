@@ -8,8 +8,8 @@ use PHPMailer\PHPMailer\SMTP;
 
 class Mail
 {
-    private string $surname;
     private string $name;
+    private string $surname;
     private string $userMail;
     private string $message;
 
