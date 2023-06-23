@@ -33,7 +33,10 @@ class Comment extends Article
     }
 
     public function showNotPublishedComments(
-        $publishedComment, $errorPublishComment, $deletedComment, $errorDeleteComment): void
+        ?string $publishedComment,
+        ?string $errorPublishComment,
+        ?string $deletedComment,
+        ?string $errorDeleteComment): void
     {
         $notPublishedComment = new CommentRepository();
         $notPublishedComment->connection = new DatabaseConnection();

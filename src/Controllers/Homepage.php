@@ -18,13 +18,13 @@ class Homepage
     }
 
     public function showHomepage(
-        $samePseudoMessage,
-        $sameMailMessage,
-        $validMessage,
-        $userLogged,
-        $loginSuccessful,
-        $loginFailed,
-        $logoutSuccessful
+        ?string $samePseudoMessage,
+        ?string $sameMailMessage,
+        ?string $validMessage,
+        ?string $userLogged,
+        ?string $loginSuccessful,
+        ?string $loginFailed,
+        ?string $logoutSuccessful
     ): void
     {
         $articleRepository = new ArticleRepository();

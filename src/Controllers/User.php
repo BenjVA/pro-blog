@@ -97,13 +97,12 @@ class User extends Homepage
         $this->twig->display('adminLayout.html.twig');
     }
 
-    public function showUserList($deletedUser,
-                                 $errorDeleteUser,
-                                 $deactivatedUser,
-                                 $errorDeactivateUser,
-                                 $activatedUser,
-                                 $errorActivateUser
-    ): void
+    public function showUserList(?string $deletedUser,
+                                 ?string $errorDeleteUser,
+                                 ?string $deactivatedUser,
+                                 ?string $errorDeactivateUser,
+                                 ?string $activatedUser,
+                                 ?string $errorActivateUser): void
     {
         $showUserList = new UserRepository();
         $showUserList->connection = new DatabaseConnection();
