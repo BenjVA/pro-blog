@@ -9,7 +9,7 @@ use App\Controllers\Homepage;
 use App\controllers\Articles;
 use App\Controllers\NotFoundController;
 use Twig\Environment;
-use \Twig\Loader\FilesystemLoader;
+use Twig\Loader\FilesystemLoader;
 use App\Controllers\User;
 use App\Controllers\Article;
 
@@ -54,8 +54,7 @@ class Router
                 'showSignUp' => $this->getShowSignUpController(),
                 default => $this->getNotFoundController(),
             };
-        }
-        else {
+        } else {
             (new Homepage($this->twig))->showHomepage(
                 $samePseudoMessage ?? null,
                 $sameMailMessage ?? null,
@@ -79,11 +78,10 @@ class Router
         if ($id && $id > 0) {
             $articleController = new Article($this->twig);
             $articleController->showPublishedArticle(
-            $id,
-            $notAddedComment ?? null,
-            $addedComment ?? null);
-        }
-        else {
+                $id,
+                $notAddedComment ?? null,
+                $addedComment ?? null);
+        } else {
             $this->getNotFoundController();
         }
     }
@@ -96,8 +94,8 @@ class Router
 
     private function getUserController(): void
     {
-            $userController = new User($this->twig);
-            $userController->signUpAction();
+        $userController = new User($this->twig);
+        $userController->signUpAction();
     }
 
     private function getLoginController(): void
@@ -123,9 +121,9 @@ class Router
         $notPublishedCommentsController = new Comment($this->twig);
         $notPublishedCommentsController->showNotPublishedComments(
             $publishedComment ?? null,
-            $errorPublishComment ?? null,
-            $deletedComment ?? null,
-            $errorDeleteComment ?? null
+                $errorPublishComment ?? null,
+                $deletedComment ?? null,
+                $errorDeleteComment ?? null
         );
     }
 
@@ -164,9 +162,9 @@ class Router
         $notPublishArticleController = new Article($this->twig);
         $notPublishArticleController->showNotPublishedArticles(
             $deletedArticle ?? null,
-            $errorDeleteArticle ?? null,
-            $publishedArticle ?? null,
-            $errorPublishArticle ?? null);
+                $errorDeleteArticle ?? null,
+                $publishedArticle ?? null,
+                $errorPublishArticle ?? null);
     }
 
     private function getDeleteArticleController(): void
@@ -174,9 +172,9 @@ class Router
         $deleteArticleController = new Article($this->twig);
         $deleteArticleController->deleteArticle(
             $deletedArticle ?? null,
-            $errorDeleteArticle ?? null,
-            $publishedArticle ?? null,
-            $errorPublishArticle ?? null);
+                $errorDeleteArticle ?? null,
+                $publishedArticle ?? null,
+                $errorPublishArticle ?? null);
     }
 
     private function getPublishArticleController(): void
@@ -184,9 +182,9 @@ class Router
         $publishArticleController = new Article($this->twig);
         $publishArticleController->publishArticle(
             $deletedArticle ?? null,
-            $errorDeleteArticle ?? null,
-            $publishedArticle ?? null,
-            $errorPublishArticle ?? null);
+                $errorDeleteArticle ?? null,
+                $publishedArticle ?? null,
+                $errorPublishArticle ?? null);
     }
 
     private function getEditArticleController(): void
