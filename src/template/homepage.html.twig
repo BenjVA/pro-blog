@@ -1,99 +1,105 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-        <header class="masthead" style="background-image: url('/src/assets/Public/img/home-bg.jpg')">
-            <div class="container position-relative px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-7">
-                        <div class="site-heading">
-                            <h1>Mon Blog</h1>
-                            <span class="subheading">Phrase d'accroche ici</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-        <div class="row gx-4 gx-lg-5 justify-content-center">
-            <div class="col-md-10 col-lg-8 col-xl-7 text-center">
-                {% if loginSuccessful %}
-                    <div class="text-center">
-                        <h2 class="text-success">Bienvenue {{ session.user.pseudo }} !</h2>
-                    </div>
-                {% endif %}
-                {% if loginFailed %}
-                    <p class="text-danger text-center">{{ loginFailed }}</p>
-                {% endif %}
-                {% if samePseudoMessage %}
-                    <p class="text-danger">{{ samePseudoMessage }}</p>
-                {% endif %}
-                {% if sameMailMessage %}
-                    <p class="text-danger">{{ sameMailMessage }}</p>
-                {% endif %}
-                {% if validMessage %}
-                    <div class="text-center">
-                        <p class="text-success">{{ validMessage }}</p>
-                        <a class="btn btn-outline py-4" href="/?action=showLogin">Se connecter</a>
-                    </div>
-                {% endif %}
-                {% if logoutSuccessful %}
-                    <p class="text-success">{{ logoutSuccessful }}</p>
-                {% endif %}
-                {% for recentArticle in recentArticles %}
-                    <h2>{{ recentArticle.title }}</h2>
-                    <small class="text-muted fst-italic">édité le {{ recentArticle.updatedAt }}</small>
-                    <p>{{ recentArticle.short }}</p>
-                    <a href="?action=articles" class="btn btn-outline py-4">Voir les différents articles</a>
-                    <hr class="my-4">
-                {% endfor %}
-            </div>
-        </div>
-        {% if not logoutSuccessful %}
-            <div class="text-center">
-                <a href="/src/assets/Public/CV/CV.pdf">Téléchargez ici mon CV</a>
-            </div>
-            <hr class="my-4">
+    <header class="masthead" style="background-image: url('/src/assets/Public/img/home-bg.jpg')">
+        <div class="container position-relative px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
-                    <h2>Me contacter</h2>
-                        <form method="post" action="/index.php">
-                            <div class="form-group">
-                                <label for="name" class="form-label">Nom :</label>
-                                <input type="text"
-                                       class="form-control"
-                                       id="name"
-                                       name="name"
-                                       placeholder="Entrez votre nom">
-                            </div>
-                            <div class="form-group">
-                                <label for="surname" class="form-label">Prénom :</label>
-                                <input type="text"
-                                       class="form-control"
-                                       id="surname"
-                                       name="surname"
-                                       placeholder="Entrez votre prénom">
-                            </div>
-                            <div class="form-group">
-                                <label for="mail" class="form-label">Email :</label>
-                                <input type="email"
-                                       class="form-control"
-                                       id="mail"
-                                       name="mail"
-                                       placeholder="email@exemple.com">
-                            </div>
-                            <div class="form-group">
-                                <label for="message" class="form-label">Message :</label>
-                                <textarea
-                                        class="form-control"
-                                        id="message"
-                                        name="message"
-                                        rows="3"
-                                        placeholder="Votre message ici" required></textarea>
-                            </div>
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-outline-dark">Envoyer</button>
-                            </div>
-                        </form>
+                    <div class="site-heading">
+                        <h1>Mon Blog</h1>
+                        <span class="subheading">Phrase d'accroche ici</span>
+                    </div>
                 </div>
             </div>
-        {% endif %}
+        </div>
+    </header>
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7 text-center">
+            {% if loginSuccessful %}
+                <div class="text-center">
+                    <h2 class="text-success">Bienvenue {{ session.user.pseudo }} !</h2>
+                </div>
+            {% endif %}
+            {% if loginFailed %}
+                <p class="text-danger text-center">{{ loginFailed }}</p>
+            {% endif %}
+            {% if samePseudoMessage %}
+                <p class="text-danger">{{ samePseudoMessage }}</p>
+            {% endif %}
+            {% if sameMailMessage %}
+                <p class="text-danger">{{ sameMailMessage }}</p>
+            {% endif %}
+            {% if validMessage %}
+                <div class="text-center">
+                    <p class="text-success">{{ validMessage }}</p>
+                    <a class="btn btn-outline py-4" href="/?action=showLogin">Se connecter</a>
+                </div>
+            {% endif %}
+            {% if logoutSuccessful %}
+                <p class="text-success">{{ logoutSuccessful }}</p>
+            {% endif %}
+            {% for recentArticle in recentArticles %}
+                <h2>{{ recentArticle.title }}</h2>
+                <small class="text-muted fst-italic">édité le {{ recentArticle.updatedAt }}</small>
+                <p>{{ recentArticle.short }}</p>
+                <a href="?action=articles" class="btn btn-outline py-4">Voir les différents articles</a>
+                <hr class="my-4">
+            {% endfor %}
+        </div>
+    </div>
+    {% if failedMessage %}
+        <p class="text-center text-danger">{{ failedMessage }}</p>
+    {% endif %}
+    {% if successMessage %}
+        <p class="text-center text-success">{{ successMessage }}</p>
+    {% endif %}
+    {% if not logoutSuccessful %}
+        <div class="text-center">
+            <a href="/src/assets/Public/CV/CV.pdf">Téléchargez ici mon CV</a>
+        </div>
+        <hr class="my-4">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <h2>Me contacter</h2>
+                    <form method="post" action="/?action=submitMail">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Nom :</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="name"
+                                   name="name"
+                                   placeholder="Entrez votre nom">
+                        </div>
+                        <div class="form-group">
+                            <label for="surname" class="form-label">Prénom :</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="surname"
+                                   name="surname"
+                                   placeholder="Entrez votre prénom">
+                        </div>
+                        <div class="form-group">
+                            <label for="mail" class="form-label">Email :</label>
+                            <input type="email"
+                                   class="form-control"
+                                   id="mail"
+                                   name="mail"
+                                   placeholder="email@exemple.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="message" class="form-label">Message :</label>
+                            <textarea
+                                    class="form-control"
+                                    id="message"
+                                    name="message"
+                                    rows="3"
+                                    placeholder="Votre message ici" required></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-outline-dark">Envoyer</button>
+                        </div>
+                    </form>
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}
