@@ -7,7 +7,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3d41ea99-0f5f-4f58-bf06-d4708cb251e6" name="Changes" comment="" />
+    <list default="true" id="3d41ea99-0f5f-4f58-bf06-d4708cb251e6" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f4406828-51f0-4593-8c1e-5bbfd6c48f1f.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f4406828-51f0-4593-8c1e-5bbfd6c48f1f/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f4406828-51f0-4593-8c1e-5bbfd6c48f1f/storage_v2/_src_/schema/mysql.osA4Bg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f4406828-51f0-4593-8c1e-5bbfd6c48f1f/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f4406828-51f0-4593-8c1e-5bbfd6c48f1f/storage_v2/_src_/schema/sys.zb4BAA.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
