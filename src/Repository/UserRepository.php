@@ -12,7 +12,7 @@ class UserRepository
 {
     public DatabaseConnection $connection;
 
-    public function getUserPseudo($pseudo): ?User
+    public function getUserPseudo(string $pseudo): ?User
     {
         $statement = $this->connection->getConnection()->prepare(
             "SELECT * FROM user WHERE pseudo = :pseudo"
@@ -31,7 +31,7 @@ class UserRepository
         return $user;
     }
 
-    public function getUserMail($mail): ?User
+    public function getUserMail(string $mail): ?User
     {
         $statement = $this->connection->getConnection()->prepare(
             "SELECT * FROM user WHERE mail = :mail"

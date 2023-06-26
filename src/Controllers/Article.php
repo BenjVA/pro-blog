@@ -18,7 +18,7 @@ class Article
         $this->twig->addGlobal('session', $_SESSION);
     }
 
-    public function showPublishedArticle(string $id, $notAddedComment, $addedComment): void
+    public function showPublishedArticle(string $id, ?string $notAddedComment, ?string $addedComment): void
     {
         $articleRepository = new ArticleRepository();
         $commentRepository = new CommentRepository();
@@ -65,7 +65,10 @@ class Article
     }
 
     public function showNotPublishedArticles(
-        $deletedArticle, $errorDeleteArticle, $publishedArticle, $errorPublishArticle): void
+        ?string $deletedArticle,
+        ?string $errorDeleteArticle,
+        ?string $publishedArticle,
+        ?string $errorPublishArticle): void
     {
         $notPublishedArticle = new ArticleRepository();
         $notPublishedArticle->connection = new DatabaseConnection();
@@ -80,7 +83,10 @@ class Article
         ]);
     }
 
-    public function deleteArticle($deletedArticle, $errorDeleteArticle, $publishedArticle, $errorPublishArticle): void
+    public function deleteArticle(?string $deletedArticle,
+                                  ?string $errorDeleteArticle,
+                                  ?string $publishedArticle,
+                                  ?string $errorPublishArticle): void
     {
         $id = $_GET['id'];
 
@@ -101,7 +107,10 @@ class Article
         );
     }
 
-    public function publishArticle($deletedArticle, $errorDeleteArticle, $publishedArticle, $errorPublishArticle): void
+    public function publishArticle(?string $deletedArticle,
+                                   ?string $errorDeleteArticle,
+                                   ?string $publishedArticle,
+                                   ?string $errorPublishArticle): void
     {
         $id = $_GET['id'];
 
@@ -144,7 +153,7 @@ class Article
         $this->showEditArticlePage($id ?? null, $editedArticle, $notEditedArticle ?? null);
     }
 
-    public function showEditArticlePage($id, $editedArticle, $notEditedArticle): void
+    public function showEditArticlePage(string $id, ?string $editedArticle, ?string $notEditedArticle): void
     {
         $articleRepository = new ArticleRepository();
         $articleRepository->connection = new DatabaseConnection();
