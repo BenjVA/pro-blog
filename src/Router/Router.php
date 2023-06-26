@@ -7,7 +7,9 @@ namespace App\Router;
 use App\Controllers\Comment;
 use App\Controllers\Homepage;
 use App\controllers\Articles;
+use App\Controllers\Mail;
 use App\Controllers\NotFoundController;
+use PHPMailer\PHPMailer\Exception;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 use App\Controllers\User;
@@ -25,6 +27,9 @@ class Router
         ]);
     }
 
+    /** Erreur mail controller
+     * @throws Exception
+     */
     public function getController(array $parameters): void
     {
         if (isset($parameters['action']) && $parameters['action'] !== '') {
@@ -52,6 +57,7 @@ class Router
                 'activateUser' => $this->getActivateUserController(),
                 'showLogin' => $this->getShowLoginController(),
                 'showSignUp' => $this->getShowSignUpController(),
+                'submitMail' => $this->getSubmitMailController(),
                 default => $this->getNotFoundController(),
             };
         } else {
@@ -243,5 +249,15 @@ class Router
     {
         $showSignUpController = new User($this->twig);
         $showSignUpController->showSignUp();
+    }
+
+
+    /** Submit controller
+     * @throws Exception
+     */
+    private function getSubmitMailController(): void
+    {
+        $submitMailController = new Mail($this->twig);
+        $submitMailController->submit();
     }
 }
