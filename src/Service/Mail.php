@@ -12,6 +12,7 @@ class Mail
     private string $surname;
     private string $userMail;
     private string $message;
+    private bool $successMessage = true;
 
     /** Mail non send
      * @throws Exception
@@ -22,13 +23,12 @@ class Mail
         $this->surname = $surname;
         $this->userMail = $userMail;
         $this->message = $message;
-        $this->send();
     }
 
     /** Error send mail method
      * @throws Exception
      */
-    public function send(): void
+    public function send(): bool
     {
         //Create a new PHPMailer instance
         $mail = new PHPMailer();
@@ -40,7 +40,7 @@ class Mail
         //SMTP::DEBUG_OFF = off (for production use)
         //SMTP::DEBUG_CLIENT = client messages
         //SMTP::DEBUG_SERVER = client and server messages
-        $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+        $mail->SMTPDebug = SMTP::DEBUG_OFF;
 
         //Set the hostname of the mail server
         $mail->Host = 'smtp.gmail.com';
@@ -65,7 +65,7 @@ class Mail
         $mail->Username = 'benvalette539@gmail.com';
 
         //Password to use for SMTP authentication
-        $mail->Password = 'xidokvfyzqldgjna';
+        $mail->Password = 'inlkjspfwrytqjrc';
 
         //Set who the message is to be sent from
         //Note that with gmail you can only use your account address (same as `Username`)
@@ -78,10 +78,13 @@ class Mail
         $mail->addReplyTo($this->userMail, $this->name);
 
         //Set who the message is to be sent to
-        $mail->addAddress('ben.valette@live.fr', 'John Doe');
+        $mail->addAddress('ben.valette@live.fr', 'Ben');
+
+        $mail->CharSet = 'UTF-8';
+        $mail->WordWrap = 75;
 
         //Set the subject line
-        $mail->Subject = 'PHPMailer GMail SMTP test';
+        $mail->Subject = 'Mail from contact form homepage';
 
         $mail->Body = <<<EOT
                         'Email:' . $this->userMail
@@ -89,5 +92,10 @@ class Mail
                         'Prénom:' $this->surname
                         'Message:' $this->message
                         EOT;
+
+        if (!$mail->send()) {
+            return 'Le message n\a pas pu être envoyé';
+        }
+        return $this->successMessage;
     }
 }

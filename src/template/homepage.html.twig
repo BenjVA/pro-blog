@@ -45,14 +45,14 @@
                 <a href="?action=articles" class="btn btn-outline py-4">Voir les différents articles</a>
                 <hr class="my-4">
             {% endfor %}
+            {% if failedMessage %}
+                <p class="text-center text-danger">{{ failedMessage }}</p>
+            {% endif %}
+            {% if successMessage %}
+                <p class="text-center text-success">{{ successMessage }}</p>
+            {% endif %}
         </div>
     </div>
-    {% if failedMessage %}
-        <p class="text-center text-danger">{{ failedMessage }}</p>
-    {% endif %}
-    {% if successMessage %}
-        <p class="text-center text-success">{{ successMessage }}</p>
-    {% endif %}
     {% if not logoutSuccessful %}
         <div class="text-center">
             <a href="/src/assets/Public/CV/CV.pdf">Téléchargez ici mon CV</a>

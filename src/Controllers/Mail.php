@@ -24,15 +24,10 @@ class Mail
             filter_input(INPUT_POST, 'mail'),
             filter_input(INPUT_POST, 'message'));
 
-        //send the message, check for errors
-        if (!$mail->send()) {
-            $failedMessage = 'Erreur dans l\'envoi du message';
+        if ($mail->send() === true) {
+            $this->twig->display('homepage.html.twig', ['successMessage' => 'Le message a bien été envoyé !']);
         } else {
-            $successMessage = 'Message envoyé !';
+            $this->twig->display('notFound.html.twig', ['failedMessage' => 'Le message n\'a pas pu être envoyé']);
         }
-        $this->twig->display('homepage.html.twig', [
-            'failedMessage' => $failedMessage ?? null,
-            'successMessage' => $successMessage ?? null
-        ]);
     }
 }

@@ -27,6 +27,9 @@ class Router
         ]);
     }
 
+    /** Erreur mail controller
+     * @throws Exception
+     */
     public function getController(array $parameters): void
     {
         if (isset($parameters['action']) && $parameters['action'] !== '') {
@@ -248,7 +251,8 @@ class Router
         $showSignUpController->showSignUp();
     }
 
-    /** Error Submit mail controller
+
+    /** Submit controller
      * @throws Exception
      */
     private function getSubmitMailController(): void
