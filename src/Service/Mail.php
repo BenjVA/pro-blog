@@ -17,7 +17,7 @@ class Mail
     /** Mail non send
      * @throws Exception
      */
-    public function __construct($name, $surname, $userMail, $message)
+    public function __construct(string $name, string $surname, string $userMail, string $message)
     {
         $this->name = $name;
         $this->surname = $surname;
@@ -94,7 +94,7 @@ class Mail
                         EOT;
 
         if (!$mail->send()) {
-            return 'Le message n\a pas pu être envoyé';
+            return $this->successMessage = false;
         }
         return $this->successMessage;
     }
