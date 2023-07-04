@@ -4,18 +4,23 @@ namespace App\Controllers;
 
 use PHPMailer\PHPMailer\Exception;
 use Twig\Environment;
-use Twig\Extension\DebugExtension;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 class Mail
 {
     public function __construct(public Environment $twig)
     {
-        $this->twig->addExtension(new DebugExtension());
         $this->twig->addGlobal('session', $_SESSION);
     }
-    
-    /**
+
+    /**Show homepage with notification if mail sent correctly
+     *
      * @throws Exception
+     * @throws SyntaxError
+     * @throws RuntimeError
+     * @throws LoaderError
      */
     public function submit(): void
     {

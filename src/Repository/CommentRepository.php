@@ -6,6 +6,7 @@ namespace App\Repository;
 
 use App\Model\Comment;
 use App\Model\DatabaseConnection;
+use PDOStatement;
 
 class CommentRepository
 {
@@ -26,19 +27,7 @@ class CommentRepository
             'idArticle' => $idArticle
         ]);
 
-        $comments = [];
-        while (($row = $statement->fetch())) {
-            $comment = new Comment();
-            $comment->id = $row['id'];
-            $comment->pseudo = $row['pseudo'];
-            $comment->createdAt = $row['createdAt'];
-            $comment->content = $row['content'];
-            $comment->idArticle = $row['idArticle'];
-            $comment->published = $row['published'];
-
-            $comments[] = $comment;
-        }
-        return $comments;
+        return $this->commentsList($statement);
     }
 
     public function addComment(string $idArticle, string $idUser, string $content): bool
@@ -66,21 +55,7 @@ class CommentRepository
                     ORDER BY createdAt DESC"
         );
 
-        $notPublishedComments = [];
-
-        while (($row = $statement->fetch())) {
-            $notPublishedComment = new Comment();
-            $notPublishedComment->id = $row['id'];
-            $notPublishedComment->pseudo = $row['pseudo'];
-            $notPublishedComment->createdAt = $row['createdAt'];
-            $notPublishedComment->content = $row['content'];
-            $notPublishedComment->idArticle = $row['idArticle'];
-            $notPublishedComment->published = $row['published'];
-
-            $notPublishedComments[] = $notPublishedComment;
-        }
-
-        return $notPublishedComments;
+        return $this->commentsList($statement);
     }
 
     public function publishComment(string $id): bool
@@ -107,5 +82,27 @@ class CommentRepository
         ]);
 
         return ($affectedLine > 0);
+    }
+
+    /**Get comments list to avoid duplicate code
+     *
+     * @param bool|PDOStatement $statement
+     * @return array
+     */
+    public function commentsList(bool|PDOStatement $statement): array
+    {
+        $commentsList = [];
+        while (($row = $statement->fetch())) {
+            $comment = new Comment();
+            $comment->id = $row['id'];
+            $comment->pseudo = $row['pseudo'];
+            $comment->createdAt = $row['createdAt'];
+            $comment->content = $row['content'];
+            $comment->idArticle = $row['idArticle'];
+            $comment->published = $row['published'];
+
+            $commentsList[] = $comment;
+        }
+        return $commentsList;
     }
 }

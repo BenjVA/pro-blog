@@ -6,6 +6,7 @@ namespace App\Repository;
 
 use App\Model\Article;
 use App\Model\DatabaseConnection;
+use PDOStatement;
 
 class ArticleRepository
 {
@@ -23,21 +24,7 @@ class ArticleRepository
             DESC
             LIMIT 0, 3"
         );
-        $recentArticles = [];
-
-        while (($row = $statement->fetch())) {
-            $recentArticle = new Article();
-            $recentArticle->title = $row['title'];
-            $recentArticle->published = $row['published'];
-            $recentArticle->createdAt = $row['createdAt'];
-            $recentArticle->updatedAt = $row['updatedAt'];
-            $recentArticle->short = $row['short'];
-            $recentArticle->id = $row['id'];
-
-            $recentArticles[] = $recentArticle;
-        }
-
-        return $recentArticles;
+        return $this->articlesList($statement);
     }
 
     public function getPublishedArticles(): array
@@ -51,21 +38,7 @@ class ArticleRepository
             ORDER BY article.updatedAt
             DESC"
         );
-        $articles = [];
-
-        while (($row = $statement->fetch())) {
-            $article = new Article();
-            $article->title = $row['title'];
-            $article->published = $row['published'];
-            $article->createdAt = $row['createdAt'];
-            $article->updatedAt = $row['updatedAt'];
-            $article->short = $row['short'];
-            $article->id = $row['id'];
-
-            $articles[] = $article;
-        }
-
-        return $articles;
+        return $this->articlesList($statement);
     }
 
     public function getSingleArticle(string $id): Article
@@ -179,5 +152,29 @@ class ArticleRepository
         ]);
 
         return ($affectedLine > 0);
+    }
+
+    /**Get articles list to avoid duplicate code
+     *
+     * @param bool|PDOStatement $statement
+     * @return array
+     */
+    private function articlesList(bool|PDOStatement $statement): array
+    {
+        $ArticlesList = [];
+
+        while (($row = $statement->fetch())) {
+            $Article = new Article();
+            $Article->title = $row['title'];
+            $Article->published = $row['published'];
+            $Article->createdAt = $row['createdAt'];
+            $Article->updatedAt = $row['updatedAt'];
+            $Article->short = $row['short'];
+            $Article->id = $row['id'];
+
+            $ArticlesList[] = $Article;
+        }
+
+        return $ArticlesList;
     }
 }

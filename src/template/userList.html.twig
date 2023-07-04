@@ -18,7 +18,6 @@
             {% if deletedUser %}
                 <div class="text-center">
                     <p class="text-success">{{ deletedUser }}</p>
-                    <a class="btn btn-outline py-4" href="/?action=showUserList">Voir les utilisateurs</a>
                 </div>
             {% endif %}
             {% if errorDeleteUser %}
@@ -30,7 +29,6 @@
             {% if deactivatedUser %}
                 <div class="text-center">
                     <p class="text-success">{{ deactivatedUser }}</p>
-                    <a class="btn btn-outline py-4" href="/?action=showUserList">Voir les utilisateurs</a>
                 </div>
             {% endif %}
             {% if errorDeactivateUser %}
@@ -42,7 +40,6 @@
             {% if activatedUser %}
                 <div class="text-center">
                     <p class="text-success">{{ activatedUser }}</p>
-                    <a class="btn btn-outline py-4" href="/?action=showUserList">Voir les utilisateurs</a>
                 </div>
             {% endif %}
             {% if errorActivateUser %}
@@ -67,6 +64,7 @@
                                    class="btn"><i class="fa-solid fa-play" style="color: #0000ff;"></i></a>
                             {% endif %}
                             <a href="/?action=deleteUser&id={{ users.id }}"
+                               onclick="return confirm('Voulez-vous supprimer définitivement cet utilisateur ?')"
                                class="btn"><i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
                         </div>
                     </div>
