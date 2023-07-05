@@ -1,6 +1,6 @@
 # Pro-blog
 Projet 5
-Blog made with PHP, Twig and bootstrap
+Blog made with PHP, Twig and a bootstrap theme
 
 # Code quality
 
