@@ -19,9 +19,9 @@
             <a href="/index.php" class="btn btn-outline py-4">Retour à l'accueil</a>
         </div>
     {% endif %}
-    {% if notWaitingValidationArticle %}
+    {% if notAddedArticle %}
         <div class="text-center">
-            <p class="text-danger">{{ notWaitingValidationArticle }}</p>
+            <p class="text-danger">{{ notAddedArticle }}</p>
             <a class="btn btn-outline py-4" href="/?action=showAddArticlePage">Revenir à l'ajout d'article</a>
             <a class="btn btn-outline py-4" href="/index.php">Revenir à l'accueil</a>
         </div>
@@ -32,20 +32,21 @@
                 <form method="post" action="/?action=addArticle">
                     <div class="form-group">
                         <label for="title" class="form-label">Titre de l'article</label>
-                        <textarea
-                                class="form-control"
-                                id="title"
-                                name="title"
-                                placeholder="Votre titre ici" required></textarea>
+                        <input type="text"
+                               class="form-control"
+                               id="title"
+                               name="title"
+                               required
+                               placeholder="Votre titre ici">
                     </div>
                     <div class="form-group">
                         <label for="short" class="form-label">Chapô</label>
-                        <textarea
-                                class="form-control"
-                                id="short"
-                                name="short"
-                                rows="3"
-                                placeholder="Un court résumé ici" required></textarea>
+                        <input type="text"
+                               class="form-control"
+                               id="short"
+                               name="short"
+                               required
+                               placeholder="Entrez votre prénom">
                     </div>
                     <div class="form-group">
                         <label for="article" class="form-label">Contenu de l'article</label>
@@ -54,7 +55,8 @@
                                 id="article"
                                 name="article"
                                 rows="6"
-                                placeholder="Votre article ici" required></textarea>
+                                required
+                                placeholder="Votre article ici"></textarea>
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-outline-dark">Envoyer</button>

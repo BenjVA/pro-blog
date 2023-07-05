@@ -14,9 +14,7 @@ class Mail
     private string $message;
     private bool $successMessage = true;
 
-    /** Mail non send
-     * @throws Exception
-     */
+
     public function __construct(string $name, string $surname, string $userMail, string $message)
     {
         $this->name = $name;

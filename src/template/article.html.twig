@@ -23,8 +23,13 @@
                     <p>{{ article.content }}</p>
                 </div>
                 {% if session.user.pseudo == article.pseudo or session.user.isAdmin == 1 %}
-                        <a href="/?action=showEditArticlePage&id={{ article.id }}" class="btn">
-                            <i class="fa-solid fa-pen-to-square" style="color: #0000ff;"></i>Modifier l'article</a>
+                    <a href="/?action=showEditArticlePage&id={{ article.id }}" class="btn">
+                        <i class="fa-solid fa-pen-to-square" style="color: #0000ff;"></i>Modifier l'article</a>
+                {% endif %}
+                {% if session.user.isAdmin == 1 %}
+                    <a href="/?action=deleteArticle&id={{ article.id }}"
+                       onclick="return confirm('Voulez-vous supprimer définitivement cet article ?')"
+                       class="btn"><i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
                 {% endif %}
             </div>
         </div>
@@ -47,9 +52,14 @@
             <div class="col-md-10 col-lg-8 col-xl-7 text-center">
                 <h2>Commentaires</h2>
                 {% for comment in comments %}
-                        <p>{{ comment.content }}</p>
-                        <p class="text-muted fst-italic">Par {{ comment.pseudo }} le {{ comment.createdAt }}</p>
-                        <hr class="my-4">
+                    <p>{{ comment.content }}</p>
+                    <p class="text-muted fst-italic">Par {{ comment.pseudo }} le {{ comment.createdAt }}</p>
+                    {% if session.user.isAdmin == 1 %}
+                        <a href="/?action=deleteComment&id={{ comment.id }}"
+                           onclick="return confirm('Voulez-vous supprimer définitivement ce commentaire ?')"
+                           class="btn"><i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
+                    {% endif %}
+                    <hr class="my-4">
                 {% endfor %}
             </div>
         </div>
@@ -75,10 +85,10 @@
                 {% endif %}
                 {% if not session.user.pseudo %}
                     <div class="text-center">
-                        <a href="?action=login"
+                        <a href="?action=showLogin"
                            class="btn btn-outline py-4">Veuillez vous connecter pour poster un commentaire.</a>
                         <br>
-                        <a href="?action=signUp"
+                        <a href="?action=showSignUp"
                            class="btn btn-outline py-4">Inscrivez-vous si vous n'avez pas encore de compte.</a>
                     </div>
                 {% endif %}

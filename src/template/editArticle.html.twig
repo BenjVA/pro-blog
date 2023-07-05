@@ -31,15 +31,16 @@
             {% if not editedArticle or notEditedArticle %}
                 <form method="post" action="/?action=editArticle&id={{ articleToEdit.id }}">
                     <div class="form-group">
-                        <label for="title" class="form-label"></label>
+                        <label for="title" class="form-label">Titre</label>
                         <textarea
                                 class="form-control"
                                 id="title"
                                 name="title"
                                 required>{{ articleToEdit.title }}</textarea>
                     </div>
+                    <hr/>
                     <div class="form-group">
-                        <label for="short" class="form-label"></label>
+                        <label for="short" class="form-label">Chapô</label>
                         <textarea
                                 class="form-control"
                                 id="short"
@@ -47,8 +48,9 @@
                                 rows="3"
                                 required>{{ articleToEdit.short }}</textarea>
                     </div>
+                    <hr/>
                     <div class="form-group">
-                        <label for="article" class="form-label"></label>
+                        <label for="article" class="form-label">Contenu</label>
                         <textarea
                                 class="form-control"
                                 id="article"
