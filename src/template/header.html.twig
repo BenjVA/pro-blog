@@ -16,23 +16,41 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto py-4 py-lg-0">
-                <li class="nav-item"><a
-                            class="nav-link px-lg-3 py-3 py-lg-4" href="/index.php">Accueil</a></li>
-                <li class="nav-item"><a
-                            class="nav-link px-lg-3 py-3 py-lg-4" href="?action=articles">Articles</a></li>
+                <li class="nav-item">
+                    <a class="nav-link px-lg-3 py-3 py-lg-4" href="/index.php">
+                        Accueil
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-lg-3 py-3 py-lg-4" href="?action=articles">
+                        Articles
+                    </a>
+                </li>
                 {% if not session.user.pseudo %}
-                    <li class="nav-item"><a
-                                class="nav-link px-lg-3 py-3 py-lg-4" href="?action=showSignUp">Inscription</a></li>
-                    <li class="nav-item"><a
-                                class="nav-link px-lg-3 py-3 py-lg-4" href="?action=showLogin">Connexion</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="?action=showSignUp">
+                            Inscription
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="?action=showLogin">
+                            Connexion
+                        </a>
+                    </li>
                 {% endif %}
                 {% if session.user.pseudo %}
                     {% if session.user.isAdmin != 3 %}
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4"
-                                                href="?action=showAddArticlePage">Ajouter un article</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link px-lg-3 py-3 py-lg-4" href="?action=showAddArticlePage">
+                                Ajouter un article
+                            </a>
+                        </li>
                     {% endif%}
-                    <li class="nav-item"><a
-                                class="nav-link px-lg-3 py-3 py-lg-4" href="?action=logout">Déconnexion</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="?action=logout">
+                            Déconnexion
+                        </a>
+                    </li>
                 {% endif %}
             </ul>
         </div>

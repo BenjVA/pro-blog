@@ -23,11 +23,15 @@
             {% endif %}
             {% if errorDeleteComment %}
                 <p class="text-center text-danger">{{ errorDeleteComment }}</p>
-                <a class="btn btn-outline py-4" href="/?action=showWaitingCommentsList">Voir les commentaires en attente de validation</a>
+                <a class="btn btn-outline py-4" href="/?action=showWaitingCommentsList">
+                    Voir les commentaires en attente de validation
+                </a>
             {% endif %}
             {% if errorPublishComment %}
                 <p class="text-center text-danger">{{ errorPublishComment }}</p>
-                <a class="btn btn-outline py-4" href="/?action=showWaitingCommentsList">Voir les commentaires en attente de validation</a>
+                <a class="btn btn-outline py-4" href="/?action=showWaitingCommentsList">
+                    Voir les commentaires en attente de validation
+                </a>
             {% endif %}
             {% if notPublishedComments is empty %}
                     <p class="text-center text-bg-info">Aucun commentaire en attente !</p>
@@ -38,8 +42,9 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ notPublishedComment.pseudo }}</h5>
                             <p class="card-text">{{ notPublishedComment.content }}</p>
-                            <a href="/?action=publishComment&id={{ notPublishedComment.id }}"
-                               class="btn"><i class="fa-solid fa-check" style="color: #00ff40;"></i></a>
+                            <a href="/?action=publishComment&id={{ notPublishedComment.id }}" class="btn">
+                                <i class="fa-solid fa-check" style="color: #00ff40;"></i>
+                            </a>
                             <a href="/?action=deleteComment&id={{ notPublishedComment.id }}"
                                onclick="return confirm('Voulez-vous supprimer définitivement ce commentaire ?')"
                                class="btn"><i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>

@@ -27,16 +27,19 @@ class User
     public function signUpAction(): void
     {
         if (count($_POST) > 0) {
-            if (isset($_POST['pseudo']) && !empty($_POST['pseudo'])
-                && isset($_POST['mail']) && !empty($_POST['mail'])
-                && isset($_POST['password']) && !empty($_POST['password'])) {
+            $signUpHomepage = new Homepage($this->twig);
+            if (isset($_POST['pseudo'])
+                && !empty($_POST['pseudo'])
+                && isset($_POST['mail'])
+                && !empty($_POST['mail'])
+                && isset($_POST['password'])
+                && !empty($_POST['password'])) {
                 $pseudo = filter_input(INPUT_POST, 'pseudo',FILTER_SANITIZE_SPECIAL_CHARS);
                 $mail = filter_input(INPUT_POST, 'mail',FILTER_SANITIZE_EMAIL);
                 $password = filter_input(INPUT_POST, 'password',FILTER_SANITIZE_SPECIAL_CHARS);
 
                 $signUp = new UserRepository();
                 $signUp->connection = new DatabaseConnection();
-                $signUpHomepage = new Homepage($this->twig);
 
                 if ($signUp->getUserPseudo($pseudo) instanceof \App\Model\User) {
                     $samePseudoMessage = 'Le pseudo existe déjà';
@@ -90,6 +93,7 @@ class User
     public function loginAction(): void
     {
         if (count($_POST) > 0) {
+            $loginHomepage = new Homepage($this->twig);
             if (isset($_POST['mail']) && !empty($_POST['mail'])
                 && isset($_POST['password']) && !empty($_POST['password'])) {
                 $mail = filter_input(INPUT_POST, 'mail',FILTER_SANITIZE_EMAIL);
@@ -98,7 +102,7 @@ class User
                 $login = new UserRepository();
                 $login->connection = new DatabaseConnection();
                 $userLogged = $login->connectUser($mail, $password);
-                $loginHomepage = new Homepage($this->twig);
+
 
                 if ($userLogged) {
                     $loginSuccessful = 'Connexion réussie';

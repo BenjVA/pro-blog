@@ -10,6 +10,7 @@ use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
+use App\Model\User;
 
 class Homepage
 {
@@ -27,7 +28,7 @@ class Homepage
     public function showHomepage(?string $samePseudoMessage,
                                  ?string $sameMailMessage,
                                  ?string $validMessage,
-                                 ?string $userLogged,
+                                 ?User $userLogged,
                                  ?string $loginSuccessful,
                                  ?string $loginFailed,
                                  ?string $logoutSuccessful): void

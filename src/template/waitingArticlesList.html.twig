@@ -23,11 +23,15 @@
             {% endif %}
             {% if errorDeleteArticle %}
                 <p class="text-center text-danger">{{ errorDeleteArticle }}</p>
-                <a class="btn btn-outline py-4" href="/?action=showWaitingArticlesList">Voir les articles en attente de validation</a>
+                <a class="btn btn-outline py-4" href="/?action=showWaitingArticlesList">
+                    Voir les articles en attente de validation
+                </a>
             {% endif %}
             {% if errorPublishArticle %}
                 <p class="text-center text-danger">{{ errorPublishArticle }}</p>
-                <a class="btn btn-outline py-4" href="/?action=showWaitingArticlesList">Voir les articles en attente de validation</a>
+                <a class="btn btn-outline py-4" href="/?action=showWaitingArticlesList">
+                    Voir les articles en attente de validation
+                </a>
             {% endif %}
             {% if notPublishedArticles is empty %}
                 <p class="text-center text-bg-info">Aucun article en attente !</p>
@@ -40,8 +44,9 @@
                             <h6 class="card-subtitle mb-2 text-body-secondary">{{ notPublishedArticle.pseudo }}</h6>
                             <p class="card-text text-muted">{{ notPublishedArticle.short }}</p>
                             <p class="card-text">{{ notPublishedArticle.content }}</p>
-                            <a href="/?action=publishArticle&id={{ notPublishedArticle.id }}"
-                               class="btn"><i class="fa-solid fa-check" style="color: #00ff40;"></i></a>
+                            <a href="/?action=publishArticle&id={{ notPublishedArticle.id }}" class="btn">
+                                <i class="fa-solid fa-check" style="color: #00ff40;"></i>
+                            </a>
                             <a href="/?action=deleteArticle&id={{ notPublishedArticle.id }}"
                                onclick="return confirm('Voulez-vous supprimer définitivement cet article ?')"
                                class="btn"><i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>

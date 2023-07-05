@@ -56,16 +56,19 @@
                             <h6 class="card-subtitle mb-2 text-body-secondary">Id num : {{ users.id }}</h6>
                             <p class="card-text">Adresse mail : {{ users.mail }}</p>
                             {% if users.isAdmin != 3 %}
-                                <a href="/?action=deactivateUser&id={{ users.id }}"
-                                    class="btn"><i class="fa-solid fa-pause" style="color: #0000ff;"></i></a>
+                                <a href="/?action=deactivateUser&id={{ users.id }}" class="btn">
+                                    <i class="fa-solid fa-pause" style="color: #0000ff;"></i>
+                                </a>
                             {% endif %}
                             {% if users.isAdmin == 3 %}
-                                <a href="/?action=activateUser&id={{ users.id }}"
-                                   class="btn"><i class="fa-solid fa-play" style="color: #0000ff;"></i></a>
+                                <a href="/?action=activateUser&id={{ users.id }}" class="btn">
+                                    <i class="fa-solid fa-play" style="color: #0000ff;"></i>
+                                </a>
                             {% endif %}
                             <a href="/?action=deleteUser&id={{ users.id }}"
                                onclick="return confirm('Voulez-vous supprimer définitivement cet utilisateur ?')"
-                               class="btn"><i class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
+                               class="btn"><i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
