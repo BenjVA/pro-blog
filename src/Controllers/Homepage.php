@@ -24,13 +24,13 @@ class Homepage
      * @throws RuntimeError
      * @throws LoaderError
      */
-    public function showHomepage($samePseudoMessage,
-                                 $sameMailMessage,
-                                 $validMessage,
-                                 $userLogged,
-                                 $loginSuccessful,
-                                 $loginFailed,
-                                 $logoutSuccessful): void
+    public function showHomepage(?string $samePseudoMessage,
+                                 ?string $sameMailMessage,
+                                 ?string $validMessage,
+                                 ?string $userLogged,
+                                 ?string $loginSuccessful,
+                                 ?string $loginFailed,
+                                 ?string $logoutSuccessful): void
     {
         $articleRepository = new ArticleRepository();
         $articleRepository->connection = new DatabaseConnection();
